@@ -1,0 +1,172 @@
+/* === Base === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  background: #0d1117;
+  color: #e6edf3;
+  position: relative;
+  overflow-x: hidden;
+  padding-bottom: 2rem;
+}
+
+/* === Animated Gradient Background === */
+body::before {
+  content: "";
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, #0d1117, #1f6feb, #0d1117, #58a6ff);
+  background-size: 400% 400%;
+  z-index: -1;
+  animation: gradientMove 20s ease infinite;
+  opacity: 0.1;
+  transform: translate(var(--x, 0), var(--y, 0));
+  transition: transform 0.1s ease-out;
+}
+
+
+
+/* === Header === */
+header {
+  text-align: center;
+  padding: 2rem;
+  background-color: #161b22;
+  border-bottom: 1px solid #30363d;
+}
+
+header h1 {
+  font-size: 2.5rem;
+  color: #58a6ff;
+}
+
+header h3 {
+  color: #8b949e;
+  margin-top: 0.5rem;
+}
+
+/* === Navigation === */
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  background-color: #161b22;
+  border-bottom: 1px solid #30363d;
+  padding: 0.5rem 0;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+nav a {
+  color: #c9d1d9;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+nav a:hover {
+  color: #58a6ff;
+}
+
+/* === Sections === */
+main {
+  max-width: 1000px;
+  margin: auto;
+  padding: 2rem;
+}
+
+section {
+  margin-bottom: 3rem;
+}
+
+h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: #58a6ff;
+}
+
+/* === Skill Bars === */
+.skill {
+  margin-bottom: 20px;
+}
+
+.skill span {
+  display: block;
+  margin-bottom: 5px;
+  color: #79c0ff;
+}
+
+.project-link {
+    color: inherit;         /* Same as surrounding text */
+    text-decoration: none;  /* Remove underline */
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.project-link:hover {
+    color: #64b5f6;         /* Highlight color on hover */
+    text-decoration: underline;
+}
+
+
+.about span {
+  display: block;
+  margin-bottom: 5px;
+  color: #79c0ff;
+}
+
+.bar {
+  background-color: #21262d;
+  border-radius: 10px;
+  overflow: hidden;
+  height: 18px;
+  box-shadow: inset 0 0 5px #000;
+}
+
+.fill {
+  height: 100%;
+  background: linear-gradient(to right, #58a6ff, #1f6feb);
+  border-radius: 10px;
+
+}
+
+
+
+/* === Project Cards === */
+.project {
+  background-color: #161b22;
+  padding: 1.2rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  border: 1px solid #30363d;
+}
+
+.project h3 {
+  margin-bottom: 0.5rem;
+  color: #79c0ff;
+}
+
+/* === Footer === */
+footer {
+  text-align: center;
+  padding: 1rem;
+  background-color: #161b22;
+  color: #8b949e;
+  border-top: 1px solid #30363d;
+  font-size: 0.9rem;
+}
+
+#contact a {
+  color: #79c0ff;
+}
+
+#contact a:hover {
+  color: #58a6ff;
+  text-decoration: underline;
+}
