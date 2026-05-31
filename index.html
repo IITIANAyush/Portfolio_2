@@ -3,873 +3,710 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projects — Ayush Bhaskar</title>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <title>Ayush Bhaskar — Aerospace Engineer & Roboticist</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #0a0f1e;
-            --surface: #0f1629;
-            --border: #1e2d4a;
-            --accent: #00d4ff;
-            --accent2: #7c3aed;
-            --accent3: #f59e0b;
-            --text: #e2e8f0;
-            --muted: #64748b;
-            --card-bg: #111827;
+            --bg:       #080c18;
+            --surface:  #0d1224;
+            --border:   #192038;
+            --border2:  #253050;
+            --accent:   #00d4ff;
+            --accent2:  #7c3aed;
+            --accent3:  #f59e0b;
+            --green:    #10b981;
+            --text:     #e2e8f0;
+            --muted:    #64748b;
+            --muted2:   #94a3b8;
+            --card:     #0f1525;
         }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
 
         body {
             font-family: 'Syne', sans-serif;
-            background-color: var(--bg);
+            background: var(--bg);
             color: var(--text);
-            min-height: 100vh;
-            padding: 0;
+            overflow-x: hidden;
         }
 
-        /* ── grid background ── */
+        /* ── dot grid bg ── */
         body::before {
             content: '';
-            position: fixed;
-            inset: 0;
-            background-image:
-                linear-gradient(var(--border) 1px, transparent 1px),
-                linear-gradient(90deg, var(--border) 1px, transparent 1px);
-            background-size: 60px 60px;
-            opacity: 0.3;
+            position: fixed; inset: 0; z-index: 0;
+            background-image: radial-gradient(circle, #1e2d4a 1px, transparent 1px);
+            background-size: 36px 36px;
+            opacity: 0.35;
             pointer-events: none;
-            z-index: 0;
         }
 
-        /* ── header ── */
-        .site-header {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background: rgba(10,15,30,0.85);
-            backdrop-filter: blur(12px);
+        /* ─────────────────────── NAV ─────────────────────── */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 48px;
+            height: 60px;
+            background: rgba(8,12,24,0.82);
+            backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border);
-            padding: 16px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
         }
-
-        .site-header .logo {
+        .nav-logo {
             font-family: 'Space Mono', monospace;
-            font-size: 0.85rem;
-            color: var(--accent);
-            letter-spacing: 0.08em;
-        }
-
-        .site-header nav {
-            display: flex;
-            gap: 28px;
-        }
-
-        .site-header nav a {
             font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--muted);
+            color: var(--accent);
+            letter-spacing: 0.12em;
             text-decoration: none;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
+        }
+        .nav-links { display: flex; gap: 32px; list-style: none; }
+        .nav-links a {
+            font-size: 0.78rem; font-weight: 600;
+            color: var(--muted); text-decoration: none;
+            letter-spacing: 0.06em; text-transform: uppercase;
             transition: color 0.2s;
         }
+        .nav-links a:hover { color: var(--accent); }
 
-        .site-header nav a:hover { color: var(--accent); }
-
-        /* ── hero ── */
-        .hero {
-            position: relative;
-            z-index: 1;
-            text-align: center;
-            padding: 80px 20px 60px;
-        }
-
-        .hero-label {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.75rem;
-            color: var(--accent);
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            margin-bottom: 16px;
-        }
-
-        .hero h1 {
-            font-size: clamp(2.5rem, 6vw, 4.5rem);
-            font-weight: 800;
-            line-height: 1.05;
-            background: linear-gradient(135deg, #fff 30%, var(--accent) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 18px;
-        }
-
-        .hero p {
-            color: var(--muted);
-            max-width: 540px;
-            margin: 0 auto;
-            font-size: 1rem;
-            line-height: 1.7;
-        }
-
-        /* ── filter tabs ── */
-        .filter-bar {
-            position: relative;
-            z-index: 1;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
+        /* ─────────────────────── HERO ─────────────────────── */
+        #hero {
+            position: relative; z-index: 1;
+            min-height: 100vh;
+            display: flex; flex-direction: column;
             justify-content: center;
-            padding: 0 20px 48px;
+            padding: 100px 80px 60px;
+            max-width: 1100px; margin: 0 auto;
         }
-
-        .filter-btn {
+        .hero-pre {
             font-family: 'Space Mono', monospace;
-            font-size: 0.7rem;
-            padding: 7px 18px;
-            border-radius: 4px;
-            border: 1px solid var(--border);
-            background: transparent;
-            color: var(--muted);
-            cursor: pointer;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            transition: all 0.2s;
+            font-size: 0.72rem; color: var(--accent);
+            letter-spacing: 0.22em; text-transform: uppercase;
+            margin-bottom: 20px;
+            display: flex; align-items: center; gap: 12px;
         }
-
-        .filter-btn:hover, .filter-btn.active {
-            background: var(--accent);
-            color: var(--bg);
-            border-color: var(--accent);
-        }
-
-        /* ── main grid ── */
-        .projects-grid {
-            position: relative;
-            z-index: 1;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-            gap: 24px;
-            max-width: 1300px;
-            margin: 0 auto;
-            padding: 0 28px 80px;
-        }
-
-        /* ── project card ── */
-        .card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 28px;
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card::before {
+        .hero-pre::before {
             content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--accent), var(--accent2));
-            opacity: 0;
-            transition: opacity 0.25s;
+            display: inline-block; width: 40px; height: 1px;
+            background: var(--accent);
         }
-
-        .card:hover {
-            border-color: var(--accent);
-            transform: translateY(-4px);
-            box-shadow: 0 16px 48px rgba(0, 212, 255, 0.1);
+        .hero-name {
+            font-size: clamp(3.2rem, 7vw, 6rem);
+            font-weight: 800; line-height: 0.96;
+            letter-spacing: -0.02em;
+            margin-bottom: 24px;
         }
-
-        .card:hover::before { opacity: 1; }
-
-        .card-top {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            gap: 12px;
+        .hero-name .line1 { color: #fff; display: block; }
+        .hero-name .line2 {
+            display: block;
+            background: linear-gradient(90deg, var(--accent) 0%, var(--accent2) 60%, var(--accent3) 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-
-        .card-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
-            background: var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-            flex-shrink: 0;
+        .hero-tagline {
+            font-size: 1rem; color: var(--muted2); line-height: 1.7;
+            max-width: 560px; margin-bottom: 40px;
         }
-
-        .card-meta {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            gap: 6px;
-        }
-
-        .card-date {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.65rem;
-            color: var(--muted);
-            letter-spacing: 0.05em;
-        }
-
-        .card-tag {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.6rem;
-            padding: 3px 9px;
-            border-radius: 3px;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            font-weight: 700;
-        }
-
-        .tag-hardware  { background: rgba(245,158,11,0.15); color: var(--accent3); border: 1px solid rgba(245,158,11,0.3); }
-        .tag-ml        { background: rgba(124,58,237,0.15); color: #a78bfa; border: 1px solid rgba(124,58,237,0.3); }
-        .tag-software  { background: rgba(0,212,255,0.1);  color: var(--accent); border: 1px solid rgba(0,212,255,0.3); }
-        .tag-aerospace { background: rgba(16,185,129,0.12); color: #34d399; border: 1px solid rgba(16,185,129,0.3); }
-        .tag-simulation{ background: rgba(239,68,68,0.12); color: #f87171; border: 1px solid rgba(239,68,68,0.3); }
-        .tag-research  { background: rgba(99,102,241,0.12); color: #818cf8; border: 1px solid rgba(99,102,241,0.3); }
-
-        .card h2 {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: #fff;
-            line-height: 1.3;
-        }
-
-        .card h3 {
-            font-size: 0.78rem;
-            font-weight: 600;
-            color: var(--accent);
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-        }
-
-        .card p {
-            font-size: 0.875rem;
-            color: var(--muted);
-            line-height: 1.65;
-            flex: 1;
-        }
-
-        .card-bullets {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .card-bullets li {
-            font-size: 0.8rem;
-            color: #94a3b8;
-            padding-left: 14px;
-            position: relative;
-            line-height: 1.5;
-        }
-
-        .card-bullets li::before {
-            content: '▸';
-            position: absolute;
-            left: 0;
-            color: var(--accent);
-            font-size: 0.65rem;
-            top: 2px;
-        }
-
-        .card-footer {
-            display: flex;
-            gap: 10px;
-            margin-top: 6px;
-            flex-wrap: wrap;
-        }
-
+        .hero-tagline strong { color: var(--text); font-weight: 600; }
+        .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
         .btn {
             font-family: 'Space Mono', monospace;
-            font-size: 0.68rem;
-            padding: 8px 16px;
-            border-radius: 6px;
-            text-decoration: none;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            font-weight: 700;
-            transition: all 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
+            font-size: 0.72rem; font-weight: 700;
+            padding: 12px 24px; border-radius: 6px;
+            text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase;
+            transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px;
+        }
+        .btn-primary { background: var(--accent); color: var(--bg); border: 1px solid var(--accent); }
+        .btn-primary:hover { background: #00b8d9; border-color: #00b8d9; }
+        .btn-ghost { background: transparent; color: var(--muted2); border: 1px solid var(--border2); }
+        .btn-ghost:hover { color: var(--text); border-color: var(--muted2); }
+
+        /* floating stats */
+        .hero-stats {
+            position: absolute; right: 80px; top: 50%; transform: translateY(-50%);
+            display: flex; flex-direction: column; gap: 20px;
+        }
+        .stat-pill {
+            background: var(--card); border: 1px solid var(--border2);
+            border-radius: 10px; padding: 18px 24px;
+            text-align: center; min-width: 130px;
+        }
+        .stat-pill .num {
+            font-size: 1.9rem; font-weight: 800; color: var(--accent);
+            font-family: 'Space Mono', monospace; line-height: 1;
+            display: block; margin-bottom: 4px;
+        }
+        .stat-pill .label {
+            font-size: 0.65rem; color: var(--muted);
+            letter-spacing: 0.1em; text-transform: uppercase;
         }
 
-        .btn-primary {
-            background: var(--accent);
-            color: var(--bg);
-            border: 1px solid var(--accent);
+        /* scroll hint */
+        .scroll-hint {
+            position: absolute; bottom: 36px; left: 80px;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.65rem; color: var(--muted); letter-spacing: 0.12em;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .scroll-hint::after {
+            content: ''; display: block;
+            width: 1px; height: 48px;
+            background: linear-gradient(to bottom, var(--muted), transparent);
         }
 
-        .btn-primary:hover {
-            background: #00aacc;
-            border-color: #00aacc;
+        /* ─────────────────────── SECTIONS ─────────────────────── */
+        section { position: relative; z-index: 1; }
+        .section-inner {
+            max-width: 1100px; margin: 0 auto;
+            padding: 100px 80px;
         }
-
-        .btn-ghost {
-            background: transparent;
-            color: var(--muted);
-            border: 1px solid var(--border);
-        }
-
-        .btn-ghost:hover {
-            color: var(--text);
-            border-color: var(--muted);
-        }
-
-        .no-link {
-            opacity: 0.4;
-            cursor: default;
-            pointer-events: none;
-        }
-
-        /* ── featured card (spans 2 cols) ── */
-        .card-featured {
-            grid-column: span 2;
-        }
-
-        .card-featured .card-body {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 24px;
-        }
-
-        @media (max-width: 800px) {
-            .card-featured { grid-column: span 1; }
-            .card-featured .card-body { grid-template-columns: 1fr; }
-            .projects-grid { grid-template-columns: 1fr; }
-        }
-
-        /* ── section dividers ── */
         .section-label {
-            position: relative;
-            z-index: 1;
             font-family: 'Space Mono', monospace;
-            font-size: 0.7rem;
-            color: var(--accent3);
-            letter-spacing: 0.25em;
-            text-transform: uppercase;
-            text-align: center;
-            padding: 32px 20px 20px;
+            font-size: 0.68rem; color: var(--accent3);
+            letter-spacing: 0.22em; text-transform: uppercase;
+            margin-bottom: 14px;
+            display: flex; align-items: center; gap: 12px;
+        }
+        .section-label::before {
+            content: ''; display: inline-block;
+            width: 28px; height: 1px; background: var(--accent3);
+        }
+        .section-title {
+            font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+            font-weight: 800; color: #fff; margin-bottom: 48px;
+            line-height: 1.1;
+        }
+        .divider {
+            border: none; border-top: 1px solid var(--border);
+            max-width: 1100px; margin: 0 auto;
         }
 
-        .section-label::before, .section-label::after {
-            content: '──────';
-            margin: 0 16px;
-            color: var(--border);
+        /* ─────────────────────── ABOUT ─────────────────────── */
+        .about-grid {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 60px; align-items: start;
+        }
+        .about-text p {
+            font-size: 0.95rem; color: var(--muted2);
+            line-height: 1.8; margin-bottom: 18px;
+        }
+        .about-text p strong { color: var(--text); }
+        .about-text p em { color: var(--accent); font-style: normal; }
+        .about-links { display: flex; gap: 12px; margin-top: 24px; flex-wrap: wrap; }
+        .icon-link {
+            display: flex; align-items: center; gap: 7px;
+            font-family: 'Space Mono', monospace; font-size: 0.68rem;
+            color: var(--muted); text-decoration: none; letter-spacing: 0.06em;
+            padding: 7px 14px; border: 1px solid var(--border2); border-radius: 5px;
+            transition: all 0.2s;
+        }
+        .icon-link:hover { color: var(--accent); border-color: var(--accent); }
+
+        /* skills grid */
+        .skills-grid {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+        .skill-block {
+            background: var(--card); border: 1px solid var(--border);
+            border-radius: 8px; padding: 16px 18px;
+            transition: border-color 0.2s;
+        }
+        .skill-block:hover { border-color: var(--border2); }
+        .skill-block .sk-label {
+            font-family: 'Space Mono', monospace; font-size: 0.62rem;
+            color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+        .skill-block .sk-items {
+            font-size: 0.78rem; color: var(--muted2); line-height: 1.6;
         }
 
-        /* ── footer ── */
+        /* ─────────────────────── EDUCATION ─────────────────────── */
+        .edu-card {
+            background: var(--card); border: 1px solid var(--border);
+            border-radius: 12px; padding: 32px 36px;
+            display: flex; gap: 28px; align-items: flex-start;
+            margin-bottom: 20px;
+            transition: border-color 0.25s, transform 0.25s;
+        }
+        .edu-card:hover { border-color: var(--accent); transform: translateX(4px); }
+        .edu-icon {
+            width: 48px; height: 48px; border-radius: 10px;
+            background: linear-gradient(135deg, var(--accent2), var(--accent));
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.3rem; flex-shrink: 0;
+        }
+        .edu-body { flex: 1; }
+        .edu-body h3 { font-size: 1.05rem; font-weight: 700; color: #fff; margin-bottom: 4px; }
+        .edu-body .degree { font-size: 0.85rem; color: var(--accent); margin-bottom: 8px; }
+        .edu-body .period {
+            font-family: 'Space Mono', monospace; font-size: 0.65rem;
+            color: var(--muted); float: right; margin-top: -28px;
+        }
+        .edu-body p { font-size: 0.82rem; color: var(--muted2); line-height: 1.6; }
+        .edu-body .coursework {
+            margin-top: 10px; font-size: 0.76rem; color: var(--muted);
+        }
+        .edu-body .coursework strong { color: var(--muted2); }
+
+        /* ─────────────────────── EXPERIENCE ─────────────────────── */
+        .exp-card {
+            background: var(--card); border: 1px solid var(--border);
+            border-radius: 12px; padding: 32px 36px;
+            margin-bottom: 20px; position: relative; overflow: hidden;
+            transition: border-color 0.25s, transform 0.25s;
+        }
+        .exp-card::before {
+            content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, var(--accent), var(--accent2));
+            opacity: 0; transition: opacity 0.25s;
+        }
+        .exp-card:hover { border-color: var(--border2); transform: translateX(4px); }
+        .exp-card:hover::before { opacity: 1; }
+        .exp-head {
+            display: flex; justify-content: space-between;
+            align-items: flex-start; gap: 16px; margin-bottom: 6px;
+            flex-wrap: wrap;
+        }
+        .exp-head h3 { font-size: 1rem; font-weight: 700; color: #fff; }
+        .exp-head .company {
+            font-size: 0.8rem; color: var(--accent); margin-bottom: 4px;
+        }
+        .exp-head .period {
+            font-family: 'Space Mono', monospace; font-size: 0.65rem;
+            color: var(--muted); text-align: right; flex-shrink: 0;
+        }
+        .exp-tag {
+            display: inline-block; font-family: 'Space Mono', monospace;
+            font-size: 0.6rem; padding: 3px 9px; border-radius: 3px;
+            background: rgba(0,212,255,0.1); color: var(--accent);
+            border: 1px solid rgba(0,212,255,0.25); margin-bottom: 14px;
+            letter-spacing: 0.06em;
+        }
+        .exp-bullets { list-style: none; }
+        .exp-bullets li {
+            font-size: 0.83rem; color: var(--muted2); padding-left: 16px;
+            position: relative; line-height: 1.65; margin-bottom: 7px;
+        }
+        .exp-bullets li::before {
+            content: '▸'; position: absolute; left: 0;
+            color: var(--accent); font-size: 0.65rem; top: 3px;
+        }
+
+        /* ─────────────────────── ACHIEVEMENTS ─────────────────────── */
+        .ach-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 16px;
+        }
+        .ach-card {
+            background: var(--card); border: 1px solid var(--border);
+            border-radius: 10px; padding: 22px 24px;
+            display: flex; gap: 16px; align-items: flex-start;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+        .ach-card:hover { border-color: var(--accent3); transform: translateY(-3px); }
+        .ach-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
+        .ach-body h4 { font-size: 0.88rem; font-weight: 700; color: #fff; margin-bottom: 4px; }
+        .ach-body p { font-size: 0.76rem; color: var(--muted); line-height: 1.5; }
+
+        /* ─────────────────────── RESPONSIBILITIES ─────────────────────── */
+        .resp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .resp-card {
+            background: var(--card); border: 1px solid var(--border);
+            border-radius: 10px; padding: 24px 26px;
+            transition: border-color 0.2s;
+        }
+        .resp-card:hover { border-color: var(--green); }
+        .resp-card .role { font-size: 0.9rem; font-weight: 700; color: #fff; margin-bottom: 3px; }
+        .resp-card .org {
+            font-size: 0.75rem; color: var(--green); margin-bottom: 4px;
+        }
+        .resp-card .rperiod {
+            font-family: 'Space Mono', monospace; font-size: 0.62rem;
+            color: var(--muted); margin-bottom: 12px; display: block;
+        }
+        .resp-card p { font-size: 0.78rem; color: var(--muted2); line-height: 1.6; }
+
+        /* ─────────────────────── PROJECTS TEASER ─────────────────────── */
+        .proj-teaser {
+            background: var(--card); border: 1px solid var(--border);
+            border-radius: 16px; padding: 56px;
+            text-align: center; position: relative; overflow: hidden;
+        }
+        .proj-teaser::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: radial-gradient(ellipse at 50% 0%, rgba(0,212,255,0.06) 0%, transparent 70%);
+        }
+        .proj-teaser h2 { font-size: 2rem; font-weight: 800; color: #fff; margin-bottom: 14px; }
+        .proj-teaser p { font-size: 0.9rem; color: var(--muted2); max-width: 480px; margin: 0 auto 32px; line-height: 1.7; }
+        .proj-count {
+            display: flex; gap: 40px; justify-content: center;
+            margin-bottom: 36px; flex-wrap: wrap;
+        }
+        .proj-count .pc { text-align: center; }
+        .proj-count .pc .n {
+            font-size: 2.2rem; font-weight: 800;
+            font-family: 'Space Mono', monospace; color: var(--accent); display: block;
+        }
+        .proj-count .pc .l { font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
+
+        /* ─────────────────────── FOOTER ─────────────────────── */
         footer {
-            position: relative;
-            z-index: 1;
-            text-align: center;
-            padding: 40px 20px;
+            position: relative; z-index: 1;
             border-top: 1px solid var(--border);
-            color: var(--muted);
-            font-size: 0.85rem;
+            padding: 40px 80px;
+            display: flex; justify-content: space-between; align-items: center;
+            max-width: 1100px; margin: 0 auto;
+            flex-wrap: wrap; gap: 16px;
+        }
+        footer p { font-size: 0.75rem; color: var(--muted); }
+        footer .footer-links { display: flex; gap: 20px; }
+        footer .footer-links a {
+            font-family: 'Space Mono', monospace; font-size: 0.68rem;
+            color: var(--muted); text-decoration: none; letter-spacing: 0.06em;
+            transition: color 0.2s;
+        }
+        footer .footer-links a:hover { color: var(--accent); }
+
+        /* ─────────────────────── RESPONSIVE ─────────────────────── */
+        @media (max-width: 900px) {
+            nav { padding: 0 24px; }
+            #hero { padding: 90px 28px 60px; }
+            .hero-stats { display: none; }
+            .section-inner { padding: 72px 28px; }
+            .about-grid { grid-template-columns: 1fr; gap: 40px; }
+            .skills-grid { grid-template-columns: 1fr; }
+            .resp-grid { grid-template-columns: 1fr; }
+            .scroll-hint { left: 28px; }
+            footer { padding: 32px 28px; }
+            .proj-teaser { padding: 36px 28px; }
         }
 
-        footer a {
-            color: var(--accent);
-            text-decoration: none;
-            font-family: 'Space Mono', monospace;
-            font-size: 0.75rem;
+        /* ─────────────────────── ANIMATIONS ─────────────────────── */
+        .fade-up {
+            opacity: 0; transform: translateY(28px);
+            transition: opacity 0.55s ease, transform 0.55s ease;
         }
-
-        footer a:hover { text-decoration: underline; }
-
-        /* hide cards when filtered out */
-        .card.hidden { display: none; }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
     </style>
 </head>
 <body>
 
-<header class="site-header">
-    <div class="logo">AB / Projects</div>
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="#" style="color:var(--accent)">Projects</a>
-        <a href="https://github.com/IITIANAyush" target="_blank">GitHub ↗</a>
-    </nav>
-</header>
+<!-- ══ NAV ══ -->
+<nav>
+    <a class="nav-logo" href="#">AB_</a>
+    <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#achievements">Achievements</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="https://github.com/IITIANAyush" target="_blank">GitHub ↗</a></li>
+    </ul>
+</nav>
 
-<section class="hero">
-    <div class="hero-label">// portfolio.projects</div>
-    <h1>Engineering Projects</h1>
-    <p>Robotics · Aerospace · ML/AI · Software — built at IIT Bombay and beyond.</p>
+<!-- ══ HERO ══ -->
+<div id="hero">
+    <p class="hero-pre">B.Tech. Aerospace Engineering · IIT Bombay · 3rd Year</p>
+    <h1 class="hero-name">
+        <span class="line1">Ayush</span>
+        <span class="line2">Bhaskar</span>
+    </h1>
+    <p class="hero-tagline">
+        I build things that <strong>fly, navigate, and think</strong> — UAV systems, autonomous robots, and aerospace simulation tools.
+        Passionate about <em>GNC, computer vision, and hardware prototyping</em> from concept all the way to field test.
+    </p>
+    <div class="hero-cta">
+        <a class="btn btn-primary" href="projects.html">View Projects →</a>
+        <a class="btn btn-ghost" href="https://github.com/IITIANAyush" target="_blank">GitHub ↗</a>
+        <a class="btn btn-ghost" href="mailto:bhaskarayush2005@gmail.com">Email Me</a>
+    </div>
+
+    <div class="hero-stats">
+        <div class="stat-pill">
+            <span class="num">15+</span>
+            <span class="label">Projects</span>
+        </div>
+        <div class="stat-pill">
+            <span class="num">0.5%</span>
+            <span class="label">JEE Mains</span>
+        </div>
+        <div class="stat-pill">
+            <span class="num">Top 80</span>
+            <span class="label">Flipkart Grid</span>
+        </div>
+    </div>
+
+    <div class="scroll-hint">scroll</div>
+</div>
+
+<hr class="divider">
+
+<!-- ══ ABOUT ══ -->
+<section id="about">
+    <div class="section-inner">
+        <p class="section-label fade-up">01 // Who I am</p>
+        <h2 class="section-title fade-up">About Me</h2>
+
+        <div class="about-grid">
+            <div class="about-text fade-up">
+                <p>
+                    I'm a 3rd-year <strong>B.Tech. Aerospace Engineering</strong> student at IIT Bombay, building at the intersection of <em>autonomous systems, robotics, and flight mechanics</em>. My work ranges from implementing Kalman filters and guidance laws to physically assembling and flying RC aircraft and rover platforms.
+                </p>
+                <p>
+                    On the software side I work in <strong>Python, C/C++, MATLAB, and ROS 2</strong> — writing planners, controllers, and simulation models. On the hardware side I design in Fusion 360, cut acrylic, 3D print, solder, and tune PIDs on real vehicles.
+                </p>
+                <p>
+                    I served as <strong>Technical Convener of the Aeromodelling Club, IIT Bombay</strong> — organising a 340-participant competition, running iNav workshops, and mentoring student teams through UAV expos and RC airshows.
+                </p>
+                <div class="about-links">
+                    <a class="icon-link" href="https://github.com/IITIANAyush" target="_blank">⌥ GitHub</a>
+                    <a class="icon-link" href="https://www.linkedin.com/in/ayush-bhaskar-iitb" target="_blank">⌗ LinkedIn</a>
+                    <a class="icon-link" href="mailto:bhaskarayush2005@gmail.com">✉ Email</a>
+                    <a class="icon-link" href="tel:+918433857661">☏ +91 84338 57661</a>
+                </div>
+            </div>
+
+            <div class="skills-grid fade-up">
+                <div class="skill-block">
+                    <div class="sk-label">Robotics</div>
+                    <div class="sk-items">ROS 2, Gazebo, SLAM (Kartographer), AMCL, Nav2, A*, GVD, LiDAR, IMU</div>
+                </div>
+                <div class="skill-block">
+                    <div class="sk-label">Dynamics & Control</div>
+                    <div class="sk-items">Euler–Lagrange, Multibody Dynamics, State-Space, Kalman Filter, PID / LQR</div>
+                </div>
+                <div class="skill-block">
+                    <div class="sk-label">Programming</div>
+                    <div class="sk-items">Python, C / C++, MATLAB, Arduino (ATmega), SQL, LaTeX</div>
+                </div>
+                <div class="skill-block">
+                    <div class="sk-label">Simulation</div>
+                    <div class="sk-items">MATLAB / Simulink, Simscape Multibody, ANSYS FEA/CFD, OpenVSP, CoppeliaSim, QBlade</div>
+                </div>
+                <div class="skill-block">
+                    <div class="sk-label">ML / Vision</div>
+                    <div class="sk-items">TensorFlow, Scikit-learn, OpenCV, NLTK, Hugging Face, Pandas, NumPy, Matplotlib</div>
+                </div>
+                <div class="skill-block">
+                    <div class="sk-label">Hardware</div>
+                    <div class="sk-items">Laser Cutting, 3D Printing, Soldering, Lathe, Piezo Sensors, I2C / SPI, BLDC Motors</div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 
-<div class="filter-bar">
-    <button class="filter-btn active" data-filter="all">All</button>
-    <button class="filter-btn" data-filter="hardware">Hardware</button>
-    <button class="filter-btn" data-filter="aerospace">Aerospace</button>
-    <button class="filter-btn" data-filter="simulation">Simulation</button>
-    <button class="filter-btn" data-filter="ml">ML / AI</button>
-    <button class="filter-btn" data-filter="software">Software</button>
-    <button class="filter-btn" data-filter="research">Research</button>
-</div>
+<hr class="divider">
 
-<div class="projects-grid">
+<!-- ══ EDUCATION ══ -->
+<section id="education">
+    <div class="section-inner">
+        <p class="section-label fade-up">02 // Where I studied</p>
+        <h2 class="section-title fade-up">Education</h2>
 
-    <!-- ═══════════════════════════════════════════════
-         RECENT / 2025–26
-    ═══════════════════════════════════════════════ -->
-
-    <!-- CLT MATLAB -->
-    <div class="card" data-category="simulation research" id="clt">
-        <div class="card-top">
-            <div class="card-icon">🧱</div>
-            <div class="card-meta">
-                <span class="card-date">Jan '26 – Feb '26</span>
-                <span class="card-tag tag-simulation">Simulation</span>
+        <div class="edu-card fade-up">
+            <div class="edu-icon">🚀</div>
+            <div class="edu-body">
+                <span class="period">2023 – Present</span>
+                <h3>Indian Institute of Technology Bombay</h3>
+                <div class="degree">B.Tech. Aerospace Engineering</div>
+                <p>One of India's premier engineering institutions. Pursuing coursework spanning flight mechanics, control systems, robotics, computational aerodynamics, and machine learning — with active involvement in technical clubs and research projects.</p>
+                <div class="coursework">
+                    <strong>Relevant Coursework:</strong> Machine Learning · Robotics · Signal Processing · Control Systems · Linear Algebra · Simulations · Aerodynamics · Structures · Propulsion
+                </div>
             </div>
         </div>
-        <h3>Structures / Composites</h3>
-        <h2>Classical Lamination Theory — MATLAB</h2>
-        <p>Full CLT implementation for multi-layer composite laminates: ABD matrix assembly, stress/strain analysis, and failure prediction across arbitrary ply orientations.</p>
-        <ul class="card-bullets">
-            <li>Computes extensional (A), coupling (B), and bending (D) stiffness matrices</li>
-            <li>Supports angle-ply, cross-ply, quasi-isotropic and custom stacking sequences</li>
-            <li>Generates stress/strain distributions through laminate thickness</li>
-        </ul>
-        <div class="card-footer">
-            <a class="btn btn-primary" href="https://github.com/IITIANAyush/Classical_Lamination_Theory_CLT_MATLAB_Implementation" target="_blank">⇢ GitHub Repo</a>
+
+        <div class="edu-card fade-up">
+            <div class="edu-icon">📐</div>
+            <div class="edu-body">
+                <span class="period">2022 – 2023</span>
+                <h3>Lord Buddha Public School, Kota</h3>
+                <div class="degree">Intermediate — CBSE · 93.2%</div>
+                <p>Completed Class 12 with distinction. Intensive JEE preparation alongside Olympiad participation in Mathematics and Science.</p>
+            </div>
         </div>
     </div>
+</section>
 
-    <!-- Navigation Guidance Estimation -->
-    <div class="card" data-category="simulation research" id="nav-guidance">
-        <div class="card-top">
-            <div class="card-icon">🎯</div>
-            <div class="card-meta">
-                <span class="card-date">Jan '26 – Feb '26</span>
-                <span class="card-tag tag-research">Research</span>
+<hr class="divider">
+
+<!-- ══ EXPERIENCE ══ -->
+<section id="experience">
+    <div class="section-inner">
+        <p class="section-label fade-up">03 // Where I've worked</p>
+        <h2 class="section-title fade-up">Professional Experience</h2>
+
+        <div class="exp-card fade-up">
+            <div class="exp-head">
+                <div>
+                    <div class="company">Skaleups</div>
+                    <h3>Product Development Intern</h3>
+                </div>
+                <div class="period">Jul '25 – Aug '25<br>Mumbai, India</div>
             </div>
-        </div>
-        <h3>GNC / Controls</h3>
-        <h2>Navigation, Guidance & Estimation Algorithms</h2>
-        <p>Implementation and analysis of state estimation and missile guidance laws — Kalman Filters (EKF/UKF) and Deviated Pursuit guidance in Python/Jupyter.</p>
-        <ul class="card-bullets">
-            <li>Extended & Unscented Kalman Filter for nonlinear state estimation</li>
-            <li>Deviated Pursuit and proportional navigation guidance laws</li>
-            <li>Monte-Carlo simulation of trajectory uncertainty envelopes</li>
-        </ul>
-        <div class="card-footer">
-            <a class="btn btn-primary" href="https://github.com/IITIANAyush/navigation-guidance-estimation-algorithms" target="_blank">⇢ GitHub Repo</a>
+            <span class="exp-tag">Educational Consumer Hardware · Handheld Electromechanical Game Device</span>
+            <ul class="exp-bullets">
+                <li>Led end-to-end product lifecycle — concept through design, fabrication, and functional prototype — for a consumer-grade handheld gaming device.</li>
+                <li>Designed an impact-detection subsystem using piezoelectric sensors with Arduino-based noise filtering and threshold logic; iterated rapidly using laser cutting and 3D printing.</li>
+                <li>Conducted systematic material selection and cost estimation against consumer-grade manufacturing constraints to keep the device production-feasible.</li>
+            </ul>
         </div>
     </div>
+</section>
 
-    <!-- ROS Gazebo -->
-    <div class="card" data-category="simulation software" id="ros-gazebo">
-        <div class="card-top">
-            <div class="card-icon">🤖</div>
-            <div class="card-meta">
-                <span class="card-date">Jan '26 – Feb '26</span>
-                <span class="card-tag tag-simulation">Simulation</span>
+<hr class="divider">
+
+<!-- ══ ACHIEVEMENTS ══ -->
+<section id="achievements">
+    <div class="section-inner">
+        <p class="section-label fade-up">04 // Recognition</p>
+        <h2 class="section-title fade-up">Scholastic Achievements</h2>
+
+        <div class="ach-grid">
+            <div class="ach-card fade-up">
+                <div class="ach-icon">🥇</div>
+                <div class="ach-body">
+                    <h4>JEE Mains 2023 — National Top 0.5%</h4>
+                    <p>Ranked in the top 0.5 percentile nationally out of 1.11 million+ candidates.</p>
+                </div>
             </div>
-        </div>
-        <h3>Robotics / Path Planning</h3>
-        <h2>ROS 2 + Gazebo Path Planning Simulations</h2>
-        <p>ROS 2 / Gazebo-based simulations testing A* and Generalized Voronoi Diagram (GVD) algorithms for autonomous path generation and robot following.</p>
-        <ul class="card-bullets">
-            <li>A* search on occupancy grid maps with dynamic obstacle support</li>
-            <li>GVD skeleton extraction for safer path corridors</li>
-            <li>Full sim loop: world spawn → planning → robot navigation</li>
-        </ul>
-        <div class="card-footer">
-            <a class="btn btn-primary" href="https://github.com/IITIANAyush/ROS_Gazebo_based_Simulations" target="_blank">⇢ GitHub Repo</a>
+            <div class="ach-card fade-up">
+                <div class="ach-icon">🎓</div>
+                <div class="ach-body">
+                    <h4>JEE Advanced 2023 — National Top 4%</h4>
+                    <p>Among the top 4 percentile nationally out of 180,000+ candidates.</p>
+                </div>
+            </div>
+            <div class="ach-card fade-up">
+                <div class="ach-icon">🏆</div>
+                <div class="ach-body">
+                    <h4>NTSE National Scholar</h4>
+                    <p>Awarded the National Talent Search Examination scholarship, recognising academic excellence across India.</p>
+                </div>
+            </div>
+            <div class="ach-card fade-up">
+                <div class="ach-icon">🔬</div>
+                <div class="ach-body">
+                    <h4>KVPY Rank 1948</h4>
+                    <p>Kishore Vaigyanik Protsahan Yojana — national fellowship for excellence in science and research aptitude.</p>
+                </div>
+            </div>
+            <div class="ach-card fade-up">
+                <div class="ach-icon">📐</div>
+                <div class="ach-body">
+                    <h4>Indian Mathematics Olympiad — Top 300</h4>
+                    <p>Merit rank in the top 300 from students in grades 8–11 across India.</p>
+                </div>
+            </div>
+            <div class="ach-card fade-up">
+                <div class="ach-icon">🤖</div>
+                <div class="ach-body">
+                    <h4>Flipkart Grid 6.0 — Top 80 / 3500 Teams</h4>
+                    <p>Shortlisted among the top 79 teams nationally in the Robotics Challenge, advancing to the submission round before the national finale.</p>
+                </div>
+            </div>
+            <div class="ach-card fade-up">
+                <div class="ach-icon">🚀</div>
+                <div class="ach-body">
+                    <h4>2nd Place — Ascent Rocketry Competition (2024)</h4>
+                    <p>Simulation-based rocket design competition on OpenRocket, IIT Bombay.</p>
+                </div>
+            </div>
+            <div class="ach-card fade-up">
+                <div class="ach-icon">👨‍🏫</div>
+                <div class="ach-body">
+                    <h4>Appointed Mentor — Technical Summer Project (2025)</h4>
+                    <p>Selected to guide 3 student teams and 4 Summer of Science research students in robotics and UAV topics.</p>
+                </div>
+            </div>
         </div>
     </div>
+</section>
 
-    <!-- Gas Table Calculator -->
-    <div class="card" data-category="software aerospace" id="gas-table">
-        <div class="card-top">
-            <div class="card-icon">💨</div>
-            <div class="card-meta">
-                <span class="card-date">Jan '26 – Feb '26</span>
-                <span class="card-tag tag-software">Software</span>
+<hr class="divider">
+
+<!-- ══ RESPONSIBILITIES ══ -->
+<section id="responsibilities">
+    <div class="section-inner">
+        <p class="section-label fade-up">05 // Leadership</p>
+        <h2 class="section-title fade-up">Positions of Responsibility</h2>
+
+        <div class="resp-grid">
+            <div class="resp-card fade-up">
+                <div class="role">Technical Convener</div>
+                <div class="org">Aeromodelling Club, IIT Bombay</div>
+                <span class="rperiod">Apr '24 – Mar '25</span>
+                <p>Part of the 10-member core team. Organised the annual RC Plane Competition (80+ teams, 340+ participants, 50+ mentors). Ran iNav flight-control workshops, managed logistics for the AE229 lab course (80+ students), and handled a 3,000-follower club Instagram. Prototyped models for RC Airshows, UAV Expos, and PID demos.</p>
             </div>
-        </div>
-        <h3>Aerospace / Compressible Flow</h3>
-        <h2>Gas Dynamics Table Calculator</h2>
-        <p>Modular Python calculator implementing isentropic, normal shock, and oblique shock relations with weak/strong solution branches and a numerical θ–β–M solver.</p>
-        <ul class="card-bullets">
-            <li>Isentropic flow relations (P/P₀, T/T₀, A/A*) for arbitrary Mach</li>
-            <li>Normal and oblique shock solvers with both wave-angle branches</li>
-            <li>Interactive CLI + importable library interface</li>
-        </ul>
-        <div class="card-footer">
-            <a class="btn btn-primary" href="https://github.com/IITIANAyush/Gas-Table-Calculator" target="_blank">⇢ GitHub Repo</a>
+            <div class="resp-card fade-up">
+                <div class="role">Event Coordinator</div>
+                <div class="org">Inter IIT Tech Meet 13.0</div>
+                <span class="rperiod">Dec '24</span>
+                <p>Coordinated cross-IIT technical competitions across India's top engineering institutes. Managed company outreach for the R&D Expo; invigilated HBCSE and IdeaForge problem statements during the event.</p>
+            </div>
+            <div class="resp-card fade-up">
+                <div class="role">Department Academic Mentor</div>
+                <div class="org">Aerospace Engineering, IIT Bombay</div>
+                <span class="rperiod">2025 – 2026</span>
+                <p>Guided 6 second-year Aerospace Engineering students through coursework and research orientation for the full academic year.</p>
+            </div>
+            <div class="resp-card fade-up">
+                <div class="role">Robotics Mentor</div>
+                <div class="org">XLR8 Competition, IIT Bombay</div>
+                <span class="rperiod">2024</span>
+                <p>Mentored two student teams to design and build IMU-controlled bots for the annual XLR8 robotics competition, covering hardware integration, ESP32 firmware, and Wi-Fi control.</p>
+            </div>
         </div>
     </div>
+</section>
 
-    <!-- Fully Actuated Drone -->
-    <div class="card" data-category="aerospace simulation" id="fa-drone">
-        <div class="card-top">
-            <div class="card-icon">🚁</div>
-            <div class="card-meta">
-                <span class="card-date">Jan '26</span>
-                <span class="card-tag tag-aerospace">Aerospace</span>
+<hr class="divider">
+
+<!-- ══ PROJECTS TEASER ══ -->
+<section id="projects-section">
+    <div class="section-inner">
+        <div class="proj-teaser fade-up">
+            <h2>15+ Engineering Projects</h2>
+            <p>From hybrid drone-cars and tilt-rotor VTOLs to LLM-driven swarm controllers and industrial computer vision — see the full portfolio.</p>
+            <div class="proj-count">
+                <div class="pc"><span class="n">7</span><span class="l">Hardware</span></div>
+                <div class="pc"><span class="n">6</span><span class="l">Aerospace</span></div>
+                <div class="pc"><span class="n">5</span><span class="l">ML / AI</span></div>
+                <div class="pc"><span class="n">4</span><span class="l">Simulation</span></div>
             </div>
-        </div>
-        <h3>UAV / Controls</h3>
-        <h2>Fully Actuated Drone via Thrust Vectoring — MATLAB</h2>
-        <p>MATLAB simulation of a fully-actuated thrust-vectoring quadrotor achieving independent 6-DOF force and torque control — decoupled position and attitude.</p>
-        <ul class="card-bullets">
-            <li>Thrust-vectoring geometry enables forces in all 6 degrees of freedom</li>
-            <li>Nonlinear dynamic model + geometric controller implementation</li>
-            <li>Comparative sim: over-actuated vs standard quadrotor trajectories</li>
-        </ul>
-        <div class="card-footer">
-            <a class="btn btn-primary" href="https://github.com/IITIANAyush/fully_actuated_drone_via_thrust_vectoring" target="_blank">⇢ GitHub Repo</a>
+            <a class="btn btn-primary" href="projects.html">Explore All Projects →</a>
         </div>
     </div>
+</section>
 
-    <!-- Tilt Rotor VTOL -->
-    <div class="card" data-category="aerospace simulation" id="vtol">
-        <div class="card-top">
-            <div class="card-icon">✈️</div>
-            <div class="card-meta">
-                <span class="card-date">Jan '26</span>
-                <span class="card-tag tag-aerospace">Aerospace</span>
-            </div>
-        </div>
-        <h3>UAV / Analytical Model</h3>
-        <h2>Tilt-Rotor Fixed-Wing VTOL — Analytical Model</h2>
-        <p>Analytical model of a tilt-rotor fixed-wing VTOL aircraft capturing transition dynamics between hover and forward flight modes.</p>
-        <ul class="card-bullets">
-            <li>Rigid-body equations of motion for hybrid hover/cruise flight</li>
-            <li>Transition corridor analysis — rotor tilt angle vs airspeed</li>
-            <li>Power and efficiency comparison across flight phases</li>
-        </ul>
-        <div class="card-footer">
-            <a class="btn btn-primary" href="https://github.com/IITIANAyush/tilt_rotor_vtol" target="_blank">⇢ GitHub Repo</a>
-        </div>
-    </div>
-
-    <!-- Thin Airfoil Theory -->
-    <div class="card" data-category="aerospace simulation" id="airfoil">
-        <div class="card-top">
-            <div class="card-icon">🪃</div>
-            <div class="card-meta">
-                <span class="card-date">Jan '26</span>
-                <span class="card-tag tag-aerospace">Aerospace</span>
-            </div>
-        </div>
-        <h3>Aerodynamics</h3>
-        <h2>Thin Airfoil Theory Simulation Toolkit</h2>
-        <p>Python/Jupyter toolkit implementing TAT: lift curves, camber behavior, velocity fields, and circulation for NACA and custom airfoil profiles.</p>
-        <ul class="card-bullets">
-            <li>NACA 4/5-series and arbitrary camber-line analysis</li>
-            <li>Lift coefficient vs AoA with moment coefficient computation</li>
-            <li>Interactive velocity field and streamline visualization</li>
-        </ul>
-        <div class="card-footer">
-            <a class="btn btn-primary" href="https://github.com/IITIANAyush/Thin-Airfoil-Theory-based-simulations" target="_blank">⇢ GitHub Repo</a>
-        </div>
-    </div>
-
-    <!-- Thickness Estimation Software ← INDUSTRIAL PROJECT -->
-    <div class="card card-featured" data-category="software ml" id="thickness">
-        <div class="card-top">
-            <div class="card-icon">📏</div>
-            <div class="card-meta">
-                <span class="card-date">2025</span>
-                <span class="card-tag tag-ml">Industrial · ML</span>
-            </div>
-        </div>
-        <h3>Industrial Computer Vision</h3>
-        <h2>Thickness Estimation Software</h2>
-        <div class="card-body">
-            <div>
-                <p>Industrial-grade software for non-contact thickness measurement using computer vision and machine learning. Designed for real-time deployment on production lines with sub-millimeter accuracy requirements.</p>
-                <ul class="card-bullets" style="margin-top:12px">
-                    <li>Real-time thickness estimation from camera feed using CV pipeline</li>
-                    <li>Calibration module for camera-to-physical-unit mapping</li>
-                    <li>Edge detection and surface profile extraction via OpenCV</li>
-                </ul>
-            </div>
-            <div>
-                <ul class="card-bullets">
-                    <li>ML-based correction for lighting variance and surface reflectance</li>
-                    <li>GUI dashboard for live readouts, alerting, and logging</li>
-                    <li>Exportable measurement data for quality-control integration</li>
-                    <li>Designed to industrial accuracy standards for production deployment</li>
-                </ul>
-            </div>
-        </div>
-        <div class="card-footer">
-            <a class="btn btn-ghost no-link" href="#">⇢ Private / Proprietary</a>
-        </div>
-    </div>
-
-    <!-- DabbaXMobile -->
-    <div class="card" data-category="software" id="dabba">
-        <div class="card-top">
-            <div class="card-icon">📱</div>
-            <div class="card-meta">
-                <span class="card-date">Nov '25</span>
-                <span class="card-tag tag-software">Software</span>
-            </div>
-        </div>
-        <h3>App Development</h3>
-        <h2>DabbaXMobile</h2>
-        <p>Mobile-facing TypeScript application — full-stack development project exploring food-delivery or tiffin-service logistics domain.</p>
-        <ul class="card-bullets">
-            <li>TypeScript-first frontend and backend architecture</li>
-            <li>REST API integration for real-time order management</li>
-        </ul>
-        <div class="card-footer">
-            <a class="btn btn-primary" href="https://github.com/IITIANAyush/Dabbaxmobile" target="_blank">⇢ GitHub Repo</a>
-        </div>
-    </div>
-
-    <!-- Learning ML -->
-    <div class="card" data-category="ml research" id="learning-ml">
-        <div class="card-top">
-            <div class="card-icon">🧠</div>
-            <div class="card-meta">
-                <span class="card-date">2025 – Ongoing</span>
-                <span class="card-tag tag-ml">ML / DL</span>
-            </div>
-        </div>
-        <h3>Machine Learning</h3>
-        <h2>ML & Deep Learning Explorations</h2>
-        <p>Self-learning repository implementing diverse ML and deep learning ideas — from classic algorithms to neural architectures on real-world datasets.</p>
-        <ul class="card-bullets">
-            <li>Supervised, unsupervised, and reinforcement learning experiments</li>
-            <li>CNN, RNN, and Transformer implementations from scratch</li>
-            <li>Dataset wrangling and end-to-end training pipelines</li>
-        </ul>
-        <div class="card-footer">
-            <a class="btn btn-primary" href="https://github.com/IITIANAyush/Learning_ML" target="_blank">⇢ GitHub Repo</a>
-        </div>
-    </div>
-
-    <!-- ═══════════════════════════════════════════════
-         EARLIER PROJECTS
-    ═══════════════════════════════════════════════ -->
-
-    <!-- VAMPIRE -->
-    <div class="card" data-category="hardware" id="VAMPIRE">
-        <div class="card-top">
-            <div class="card-icon">🦇</div>
-            <div class="card-meta">
-                <span class="card-date">Jun '24 – Aug '24</span>
-                <span class="card-tag tag-hardware">Hardware</span>
-            </div>
-        </div>
-        <h3>Hybrid Robotics</h3>
-        <h2>Project VAMPIRE — Hybrid Drone-Car</h2>
-        <p>A hybrid vehicle that reorients its motor arms to switch between quadcopter and ground-car modes — single radio transmitter controls both configurations.</p>
-        <ul class="card-bullets">
-            <li>Fusion 360 CAD with precisely calculated coaxial drive for shared tyre/propeller shaft</li>
-            <li>ATmega microcontrollers with I2C inter-MCU communication for distributed compute</li>
-            <li>MPU6050, servos, BLDCs, and power-distribution board fully integrated</li>
-            <li>Simulated and iterated circuits on TinkerCAD before hardware build</li>
-        </ul>
-        <div class="card-footer">
-            <a class="btn btn-primary" href="https://github.com/IITIANAyush/Proj_vampire_Hybrid_of_Car_and_Drone" target="_blank">⇢ GitHub Repo</a>
-        </div>
-    </div>
-
-    <!-- Smart Vision / Flipkart -->
-    <div class="card" data-category="ml software" id="flipkart">
-        <div class="card-top">
-            <div class="card-icon">👁️</div>
-            <div class="card-meta">
-                <span class="card-date">Jun '24 – Present</span>
-                <span class="card-tag tag-ml">ML / CV</span>
-            </div>
-        </div>
-        <h3>Computer Vision</h3>
-        <h2>Smart Vision — ML Visual Feedback System</h2>
-        <p>Real-time face, object, shape, and manufacturer-brand detection using OpenCV + Tesseract OCR. Top 80 of 3500+ teams — Flipkart Grid 6.0.</p>
-        <ul class="card-bullets">
-            <li>Live webcam or uploaded image/video as unified input pipeline</li>
-            <li>OCR text detection and on-screen overlay for downstream analysis</li>
-            <li>Manufacturer detection model trained on product label dataset</li>
-        </ul>
-        <div class="card-footer">
-            <a class="btn btn-ghost no-link" href="#">⇢ Report / Link Pending</a>
-        </div>
-    </div>
-
-    <!-- RC Plane -->
-    <div class="card" data-category="aerospace hardware" id="rcplane">
-        <div class="card-top">
-            <div class="card-icon">🛩️</div>
-            <div class="card-meta">
-                <span class="card-date">May '24 – Jun '24</span>
-                <span class="card-tag tag-aerospace">Aerospace</span>
-            </div>
-        </div>
-        <h3>Aeromodelling Club</h3>
-        <h2>Remotely Piloted Aircraft System</h2>
-        <p>Designed, manufactured, and flight-tested a stable tapered-wing RC aircraft — CG calculations, tail volume sizing, and Phoenix RC sim training.</p>
-        <ul class="card-bullets">
-            <li>Tapered wing at AR = 6 for structural strength + aerodynamic stability</li>
-            <li>Cockpit, fuselage, and empennage designed with CG and tail-volume math</li>
-            <li>Proficiency in Phoenix RC sim and on-ground ops</li>
-        </ul>
-        <div class="card-footer">
-            <a class="btn btn-ghost no-link" href="#">⇢ Report / Link Pending</a>
-        </div>
-    </div>
-
-    <!-- SOS Microcontroller Research -->
-    <div class="card" data-category="hardware research" id="sos">
-        <div class="card-top">
-            <div class="card-icon">🔬</div>
-            <div class="card-meta">
-                <span class="card-date">May '24 – Jul '24</span>
-                <span class="card-tag tag-research">Research</span>
-            </div>
-        </div>
-        <h3>Summer of Science</h3>
-        <h2>Microcontroller & Microprocessor Research</h2>
-        <p>Deep-dive into ATmega and Raspberry Pi architectures, I2C protocol, sensor integration, and flight-controller schematics — simulated and built real systems.</p>
-        <ul class="card-bullets">
-            <li>I2C multi-device communication on TinkerCAD sim and real hardware</li>
-            <li>Research into flight-controller firmware (Betaflight, ArduPilot schematics)</li>
-            <li>IoT and robotics sensor integration with programmable boards</li>
-        </ul>
-        <div class="card-footer">
-            <a class="btn btn-ghost no-link" href="#">⇢ Report / Link Pending</a>
-        </div>
-    </div>
-
-    <!-- IMU Rover -->
-    <div class="card" data-category="hardware" id="xlr8">
-        <div class="card-top">
-            <div class="card-icon">🚗</div>
-            <div class="card-meta">
-                <span class="card-date">Aug '23</span>
-                <span class="card-tag tag-hardware">Hardware</span>
-            </div>
-        </div>
-        <h3>XLR8 Robotics Club</h3>
-        <h2>IMU-Controlled Rocker-Bogie Rover</h2>
-        <p>Terrain-optimized rocker-bogie rover with an ESP32 + IMU-based joystick controller communicating over Wi-Fi — built for competition.</p>
-        <ul class="card-bullets">
-            <li>ESP01 ↔ ESP32 Wi-Fi link streams joystick IMU tilt data to rover</li>
-            <li>Custom rocker-bogie geometry for stable CoG on uneven terrain</li>
-            <li>Self-contained wireless joystick with onboard IMU + power supply</li>
-        </ul>
-        <div class="card-footer">
-            <a class="btn btn-ghost no-link" href="#">⇢ Report / Link Pending</a>
-        </div>
-    </div>
-
-    <!-- UTM -->
-    <div class="card" data-category="hardware" id="utm">
-        <div class="card-top">
-            <div class="card-icon">⚙️</div>
-            <div class="card-meta">
-                <span class="card-date">Nov '23</span>
-                <span class="card-tag tag-hardware">Hardware</span>
-            </div>
-        </div>
-        <h3>Course Project</h3>
-        <h2>Universal Testing Machine</h2>
-        <p>Mini UTM for tensile strength testing — laser-cut acrylic frame, 3D-printed grips, lead-screw actuation with gear-ratio optimized for maximum torque.</p>
-        <ul class="card-bullets">
-            <li>Laser-cut 3 mm & 5 mm acrylic sheet structural frame</li>
-            <li>3D-printed grip clamps with textured pattern for sample retention</li>
-            <li>Motor + gear ratio selected to maximise lead-screw torque output</li>
-        </ul>
-        <div class="card-footer">
-            <a class="btn btn-ghost no-link" href="#">⇢ Report / Link Pending</a>
-        </div>
-    </div>
-
-    <!-- Intro to ML / NLP -->
-    <div class="card" data-category="ml research" id="intro-ml">
-        <div class="card-top">
-            <div class="card-icon">📊</div>
-            <div class="card-meta">
-                <span class="card-date">Jul '25</span>
-                <span class="card-tag tag-ml">ML / NLP</span>
-            </div>
-        </div>
-        <h3>Machine Learning</h3>
-        <h2>Intro to ML & NLP — Personalised Datasets</h2>
-        <p>Foundational ML and data-science project: modelling, training, and evaluating models on custom-built datasets using standard Python libraries.</p>
-        <ul class="card-bullets">
-            <li>End-to-end pipeline: data collection → pre-processing → training → eval</li>
-            <li>NLP tasks: tokenization, text classification, and sentiment analysis</li>
-            <li>Sklearn, Pandas, Matplotlib, and NLTK toolkit usage</li>
-        </ul>
-        <div class="card-footer">
-            <a class="btn btn-primary" href="https://github.com/IITIANAyush/Intro_to_ML-_and_NLP" target="_blank">⇢ GitHub Repo</a>
-        </div>
-    </div>
-
-</div>
-
+<!-- ══ FOOTER ══ -->
 <footer>
-    <p style="margin-bottom:12px; color: var(--muted); font-size:0.8rem;">
-        Some project links are pending upload — check back soon.
-    </p>
-    <a href="index.html">&larr; Back to Main Site</a>
-    &nbsp;&nbsp;|&nbsp;&nbsp;
-    <a href="https://github.com/IITIANAyush" target="_blank">github.com/IITIANAyush ↗</a>
+    <p>© 2026 Ayush Bhaskar · IIT Bombay · Aerospace Engineering</p>
+    <div class="footer-links">
+        <a href="https://github.com/IITIANAyush" target="_blank">GitHub</a>
+        <a href="https://www.linkedin.com/in/ayush-bhaskar-iitb" target="_blank">LinkedIn</a>
+        <a href="mailto:bhaskarayush2005@gmail.com">Email</a>
+        <a href="projects.html">Projects</a>
+    </div>
 </footer>
 
 <script>
-    // ── filter logic ──
-    const btns = document.querySelectorAll('.filter-btn');
-    const cards = document.querySelectorAll('.card');
-
-    btns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            btns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            const filter = btn.dataset.filter;
-            cards.forEach(card => {
-                if (filter === 'all') {
-                    card.classList.remove('hidden');
-                } else {
-                    const cats = (card.dataset.category || '').split(' ');
-                    card.classList.toggle('hidden', !cats.includes(filter));
-                }
-            });
-        });
-    });
-
-    // ── staggered reveal on load ──
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
+    // scroll-reveal
+    const fadeEls = document.querySelectorAll('.fade-up');
+    const io = new IntersectionObserver((entries) => {
+        entries.forEach((e, i) => {
+            if (e.isIntersecting) {
+                // stagger siblings in same section
+                const siblings = [...e.target.parentElement.querySelectorAll('.fade-up')];
+                const idx = siblings.indexOf(e.target);
+                setTimeout(() => e.target.classList.add('visible'), idx * 80);
+                io.unobserve(e.target);
             }
         });
-    }, { threshold: 0.08 });
-
-    cards.forEach((card, i) => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(24px)';
-        card.style.transition = `opacity 0.45s ease ${i * 0.04}s, transform 0.45s ease ${i * 0.04}s, border-color 0.25s, box-shadow 0.25s`;
-        observer.observe(card);
-    });
+    }, { threshold: 0.1 });
+    fadeEls.forEach(el => io.observe(el));
 </script>
 </body>
 </html>
