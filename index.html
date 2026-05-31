@@ -1,910 +1,875 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ayush Bhaskar — Aerospace · Robotics · ML</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --bg: #080c10;
-    --bg2: #0d1117;
-    --bg3: #111820;
-    --panel: #131c26;
-    --accent: #00d4ff;
-    --accent2: #ff6b35;
-    --accent3: #7fff5f;
-    --text: #e8edf2;
-    --muted: #6b7f94;
-    --border: #1e2d3d;
-    --glow: 0 0 40px rgba(0,212,255,0.12);
-  }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects — Ayush Bhaskar</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0f1e;
+            --surface: #0f1629;
+            --border: #1e2d4a;
+            --accent: #00d4ff;
+            --accent2: #7c3aed;
+            --accent3: #f59e0b;
+            --text: #e2e8f0;
+            --muted: #64748b;
+            --card-bg: #111827;
+        }
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-  html { scroll-behavior: smooth; }
+        html { scroll-behavior: smooth; }
 
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Inter', sans-serif;
-    font-weight: 300;
-    line-height: 1.7;
-    overflow-x: hidden;
-  }
+        body {
+            font-family: 'Syne', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            padding: 0;
+        }
 
-  /* ── NAV ── */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 18px 48px;
-    background: rgba(8,12,16,0.85);
-    backdrop-filter: blur(16px);
-    border-bottom: 1px solid var(--border);
-  }
-  .nav-logo {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800; font-size: 1.1rem;
-    color: var(--accent); letter-spacing: 0.05em;
-  }
-  .nav-links { display: flex; gap: 36px; list-style: none; }
-  .nav-links a {
-    font-family: 'DM Mono', monospace; font-size: 0.78rem; font-weight: 400;
-    color: var(--muted); text-decoration: none; letter-spacing: 0.1em;
-    text-transform: uppercase; transition: color 0.2s;
-  }
-  .nav-links a:hover { color: var(--accent); }
+        /* ── grid background ── */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(var(--border) 1px, transparent 1px),
+                linear-gradient(90deg, var(--border) 1px, transparent 1px);
+            background-size: 60px 60px;
+            opacity: 0.3;
+            pointer-events: none;
+            z-index: 0;
+        }
 
-  /* ── HERO ── */
-  #hero {
-    min-height: 100vh;
-    display: flex; flex-direction: column; justify-content: center;
-    padding: 120px 48px 80px;
-    position: relative; overflow: hidden;
-  }
-  .hero-grid-bg {
-    position: absolute; inset: 0;
-    background-image:
-      linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
-    background-size: 60px 60px;
-    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black, transparent);
-  }
-  .hero-orb {
-    position: absolute; width: 700px; height: 700px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(0,212,255,0.06) 0%, transparent 70%);
-    top: -100px; right: -200px; pointer-events: none;
-  }
-  .hero-orb2 {
-    position: absolute; width: 400px; height: 400px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(255,107,53,0.05) 0%, transparent 70%);
-    bottom: 0; left: 100px; pointer-events: none;
-  }
-  .hero-tag {
-    font-family: 'DM Mono', monospace; font-size: 0.78rem; letter-spacing: 0.2em;
-    text-transform: uppercase; color: var(--accent); margin-bottom: 20px;
-    opacity: 0; animation: fadeUp 0.6s 0.2s forwards;
-  }
-  .hero-name {
-    font-family: 'Syne', sans-serif; font-size: clamp(3.5rem, 8vw, 7rem);
-    font-weight: 800; line-height: 1; letter-spacing: -0.02em;
-    color: var(--text);
-    opacity: 0; animation: fadeUp 0.6s 0.35s forwards;
-  }
-  .hero-name span { color: var(--accent); }
-  .hero-sub {
-    margin-top: 24px; max-width: 600px;
-    font-size: 1.1rem; color: var(--muted); font-weight: 300;
-    opacity: 0; animation: fadeUp 0.6s 0.5s forwards;
-  }
-  .hero-pills {
-    display: flex; flex-wrap: wrap; gap: 10px; margin-top: 32px;
-    opacity: 0; animation: fadeUp 0.6s 0.65s forwards;
-  }
-  .pill {
-    font-family: 'DM Mono', monospace; font-size: 0.72rem;
-    padding: 6px 16px; border-radius: 100px;
-    border: 1px solid var(--border); color: var(--muted);
-    background: var(--panel); letter-spacing: 0.08em;
-  }
-  .pill.accent { border-color: var(--accent); color: var(--accent); }
-  .pill.accent2 { border-color: var(--accent2); color: var(--accent2); }
-  .pill.accent3 { border-color: var(--accent3); color: var(--accent3); }
-  .hero-cta {
-    display: flex; gap: 16px; margin-top: 48px;
-    opacity: 0; animation: fadeUp 0.6s 0.8s forwards;
-  }
-  .btn {
-    font-family: 'DM Mono', monospace; font-size: 0.8rem; letter-spacing: 0.1em;
-    text-transform: uppercase; text-decoration: none;
-    padding: 14px 32px; border-radius: 4px; transition: all 0.2s;
-    display: inline-block;
-  }
-  .btn-primary {
-    background: var(--accent); color: var(--bg);
-    font-weight: 500;
-  }
-  .btn-primary:hover { background: #33dcff; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,212,255,0.25); }
-  .btn-outline {
-    border: 1px solid var(--border); color: var(--muted);
-  }
-  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+        /* ── header ── */
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(10,15,30,0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-  .hero-stats {
-    display: flex; gap: 48px; margin-top: 64px;
-    opacity: 0; animation: fadeUp 0.6s 0.95s forwards;
-    padding-top: 48px; border-top: 1px solid var(--border);
-  }
-  .stat-val {
-    font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 700;
-    color: var(--accent);
-  }
-  .stat-label {
-    font-family: 'DM Mono', monospace; font-size: 0.72rem;
-    color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase;
-    margin-top: 2px;
-  }
+        .site-header .logo {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--accent);
+            letter-spacing: 0.08em;
+        }
 
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+        .site-header nav {
+            display: flex;
+            gap: 28px;
+        }
 
-  /* ── SECTIONS ── */
-  section { padding: 100px 48px; }
-  .section-label {
-    font-family: 'DM Mono', monospace; font-size: 0.75rem; letter-spacing: 0.2em;
-    text-transform: uppercase; color: var(--accent); margin-bottom: 12px;
-  }
-  .section-title {
-    font-family: 'Syne', sans-serif; font-size: clamp(2rem, 4vw, 3rem);
-    font-weight: 700; color: var(--text); margin-bottom: 60px;
-    line-height: 1.1;
-  }
+        .site-header nav a {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--muted);
+            text-decoration: none;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            transition: color 0.2s;
+        }
 
-  /* ── ABOUT ── */
-  #about { background: var(--bg2); }
-  .about-grid {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;
-  }
-  .about-text p { color: var(--muted); margin-bottom: 16px; font-size: 1rem; }
-  .about-highlights { display: flex; flex-direction: column; gap: 20px; }
-  .highlight-card {
-    background: var(--panel); border: 1px solid var(--border);
-    border-left: 3px solid var(--accent); padding: 20px 24px; border-radius: 4px;
-  }
-  .highlight-card h4 {
-    font-family: 'Syne', sans-serif; font-size: 0.9rem; font-weight: 600;
-    color: var(--text); margin-bottom: 4px;
-  }
-  .highlight-card p { font-size: 0.85rem; color: var(--muted); margin: 0; }
+        .site-header nav a:hover { color: var(--accent); }
 
-  /* ── SKILLS ── */
-  #skills { background: var(--bg); }
-  .skills-grid {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px;
-  }
-  .skill-category {
-    background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
-    padding: 28px; transition: border-color 0.2s, box-shadow 0.2s;
-  }
-  .skill-category:hover {
-    border-color: var(--accent); box-shadow: var(--glow);
-  }
-  .skill-cat-header {
-    display: flex; align-items: center; gap: 12px; margin-bottom: 18px;
-  }
-  .skill-cat-icon {
-    width: 36px; height: 36px; border-radius: 6px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.1rem;
-  }
-  .skill-cat-name {
-    font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 600; color: var(--text);
-  }
-  .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
-  .skill-tag {
-    font-family: 'DM Mono', monospace; font-size: 0.72rem;
-    padding: 4px 12px; border-radius: 4px;
-    background: rgba(0,212,255,0.06); border: 1px solid rgba(0,212,255,0.15);
-    color: rgba(0,212,255,0.8);
-  }
-  .skill-tag.orange {
-    background: rgba(255,107,53,0.06); border-color: rgba(255,107,53,0.15); color: rgba(255,107,53,0.8);
-  }
-  .skill-tag.green {
-    background: rgba(127,255,95,0.06); border-color: rgba(127,255,95,0.15); color: rgba(127,255,95,0.8);
-  }
-  .skill-tag.purple {
-    background: rgba(180,120,255,0.06); border-color: rgba(180,120,255,0.15); color: rgba(180,120,255,0.8);
-  }
-  .skill-tag.yellow {
-    background: rgba(255,220,50,0.06); border-color: rgba(255,220,50,0.15); color: rgba(255,220,50,0.8);
-  }
+        /* ── hero ── */
+        .hero {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 80px 20px 60px;
+        }
 
-  /* ── EXPERIENCE ── */
-  #experience { background: var(--bg2); }
-  .exp-card {
-    background: var(--panel); border: 1px solid var(--border);
-    border-radius: 8px; padding: 36px; max-width: 800px;
-    position: relative; overflow: hidden;
-  }
-  .exp-card::before {
-    content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 3px;
-    background: linear-gradient(to bottom, var(--accent), var(--accent2));
-  }
-  .exp-top {
-    display: flex; justify-content: space-between; align-items: flex-start;
-    margin-bottom: 8px; flex-wrap: wrap; gap: 8px;
-  }
-  .exp-company {
-    font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--text);
-  }
-  .exp-date {
-    font-family: 'DM Mono', monospace; font-size: 0.75rem;
-    color: var(--muted); letter-spacing: 0.1em;
-    background: var(--bg3); padding: 4px 12px; border-radius: 100px;
-    border: 1px solid var(--border);
-  }
-  .exp-role {
-    font-family: 'DM Mono', monospace; font-size: 0.82rem; color: var(--accent);
-    margin-bottom: 20px; letter-spacing: 0.05em;
-  }
-  .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-  .exp-bullets li {
-    padding-left: 20px; position: relative;
-    font-size: 0.9rem; color: var(--muted);
-  }
-  .exp-bullets li::before {
-    content: '→'; position: absolute; left: 0; color: var(--accent); font-size: 0.75rem;
-    top: 3px;
-  }
+        .hero-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--accent);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
 
-  /* ── PROJECTS ── */
-  #projects { background: var(--bg); }
-  .projects-grid {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 24px;
-  }
-  .project-card {
-    background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
-    padding: 32px; display: flex; flex-direction: column; gap: 16px;
-    transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
-    position: relative; overflow: hidden;
-  }
-  .project-card:hover {
-    transform: translateY(-4px); border-color: rgba(0,212,255,0.3);
-    box-shadow: 0 16px 48px rgba(0,0,0,0.4), 0 0 32px rgba(0,212,255,0.08);
-  }
-  .project-number {
-    font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--muted);
-    letter-spacing: 0.15em; opacity: 0.5;
-  }
-  .project-title {
-    font-family: 'Syne', sans-serif; font-size: 1.15rem; font-weight: 700;
-    color: var(--text); line-height: 1.3;
-  }
-  .project-subtitle {
-    font-family: 'DM Mono', monospace; font-size: 0.78rem; color: var(--accent2);
-    letter-spacing: 0.05em;
-  }
-  .project-desc {
-    font-size: 0.875rem; color: var(--muted); line-height: 1.6; flex: 1;
-  }
-  .project-tech { display: flex; flex-wrap: wrap; gap: 6px; }
-  .tech-badge {
-    font-family: 'DM Mono', monospace; font-size: 0.68rem;
-    padding: 3px 10px; border-radius: 3px;
-    background: var(--bg3); border: 1px solid var(--border);
-    color: var(--muted); letter-spacing: 0.05em;
-  }
-  .project-badge {
-    position: absolute; top: 20px; right: 20px;
-    font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em;
-    padding: 4px 10px; border-radius: 100px; text-transform: uppercase;
-  }
-  .badge-key { background: rgba(0,212,255,0.1); border: 1px solid rgba(0,212,255,0.2); color: var(--accent); }
-  .badge-other { background: rgba(127,255,95,0.07); border: 1px solid rgba(127,255,95,0.15); color: var(--accent3); }
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 800;
+            line-height: 1.05;
+            background: linear-gradient(135deg, #fff 30%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 18px;
+        }
 
-  /* ── ACHIEVEMENTS ── */
-  #achievements { background: var(--bg2); }
-  .achievements-grid {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;
-  }
-  .achievement-card {
-    background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
-    padding: 24px; display: flex; align-items: flex-start; gap: 16px;
-    transition: border-color 0.2s;
-  }
-  .achievement-card:hover { border-color: var(--accent2); }
-  .achievement-icon {
-    font-size: 1.5rem; width: 44px; height: 44px;
-    display: flex; align-items: center; justify-content: center;
-    background: var(--bg3); border-radius: 8px; flex-shrink: 0;
-  }
-  .achievement-text h4 {
-    font-family: 'Syne', sans-serif; font-size: 0.9rem; font-weight: 600;
-    color: var(--text); margin-bottom: 4px;
-  }
-  .achievement-text p { font-size: 0.82rem; color: var(--muted); }
+        .hero p {
+            color: var(--muted);
+            max-width: 540px;
+            margin: 0 auto;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
 
-  /* ── EDUCATION ── */
-  #education { background: var(--bg); }
-  .edu-timeline { display: flex; flex-direction: column; gap: 0; max-width: 700px; }
-  .edu-item {
-    display: flex; gap: 28px; padding-bottom: 40px; position: relative;
-  }
-  .edu-item::before {
-    content: ''; position: absolute; left: 18px; top: 36px; bottom: 0;
-    width: 1px; background: var(--border);
-  }
-  .edu-item:last-child::before { display: none; }
-  .edu-dot {
-    width: 36px; height: 36px; border-radius: 50%;
-    background: var(--panel); border: 2px solid var(--accent);
-    flex-shrink: 0; display: flex; align-items: center; justify-content: center;
-    font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--accent);
-    margin-top: 2px;
-  }
-  .edu-content h3 {
-    font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 600;
-    color: var(--text); margin-bottom: 2px;
-  }
-  .edu-content .edu-degree {
-    font-size: 0.85rem; color: var(--muted); margin-bottom: 4px;
-  }
-  .edu-date {
-    font-family: 'DM Mono', monospace; font-size: 0.72rem;
-    color: var(--accent); letter-spacing: 0.1em;
-  }
+        /* ── filter tabs ── */
+        .filter-bar {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            padding: 0 20px 48px;
+        }
 
-  /* ── LEADERSHIP ── */
-  #leadership { background: var(--bg2); }
-  .leadership-grid {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px;
-  }
-  .leadership-card {
-    background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
-    padding: 28px; transition: border-color 0.2s;
-  }
-  .leadership-card:hover { border-color: var(--accent3); }
-  .leadership-card h4 {
-    font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 600;
-    color: var(--text); margin-bottom: 4px;
-  }
-  .leadership-card .role-tag {
-    font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--accent3);
-    margin-bottom: 12px; display: block;
-  }
-  .leadership-card p { font-size: 0.85rem; color: var(--muted); }
+        .filter-btn {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            padding: 7px 18px;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--muted);
+            cursor: pointer;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            transition: all 0.2s;
+        }
 
-  /* ── CONTACT ── */
-  #contact {
-    background: var(--bg);
-    text-align: center; padding: 100px 48px 80px;
-  }
-  .contact-email {
-    font-family: 'Syne', sans-serif; font-size: clamp(1.5rem, 3vw, 2.5rem);
-    font-weight: 700; color: var(--text);
-    text-decoration: none; display: inline-block; margin: 32px 0;
-    border-bottom: 2px solid var(--accent); transition: color 0.2s;
-  }
-  .contact-email:hover { color: var(--accent); }
-  .contact-links { display: flex; justify-content: center; gap: 24px; margin-top: 32px; }
-  .contact-link {
-    font-family: 'DM Mono', monospace; font-size: 0.78rem; letter-spacing: 0.1em;
-    color: var(--muted); text-decoration: none; text-transform: uppercase;
-    border: 1px solid var(--border); padding: 12px 24px; border-radius: 4px;
-    transition: all 0.2s;
-  }
-  .contact-link:hover { color: var(--accent); border-color: var(--accent); }
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--accent);
+            color: var(--bg);
+            border-color: var(--accent);
+        }
 
-  footer {
-    padding: 24px 48px; border-top: 1px solid var(--border);
-    display: flex; justify-content: space-between; align-items: center;
-    font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--muted);
-  }
+        /* ── main grid ── */
+        .projects-grid {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 24px;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 28px 80px;
+        }
 
-  /* ── SCROLL REVEAL ── */
-  .reveal {
-    opacity: 0; transform: translateY(30px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-  }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
+        /* ── project card ── */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+            position: relative;
+            overflow: hidden;
+        }
 
-  /* ── MOBILE ── */
-  @media (max-width: 768px) {
-    nav { padding: 16px 24px; }
-    .nav-links { display: none; }
-    #hero { padding: 100px 24px 60px; }
-    .hero-stats { gap: 28px; flex-wrap: wrap; }
-    section { padding: 60px 24px; }
-    .about-grid { grid-template-columns: 1fr; gap: 40px; }
-    .projects-grid { grid-template-columns: 1fr; }
-    footer { flex-direction: column; gap: 12px; text-align: center; }
-  }
-</style>
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            opacity: 0;
+            transition: opacity 0.25s;
+        }
+
+        .card:hover {
+            border-color: var(--accent);
+            transform: translateY(-4px);
+            box-shadow: 0 16px 48px rgba(0, 212, 255, 0.1);
+        }
+
+        .card:hover::before { opacity: 1; }
+
+        .card-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .card-meta {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 6px;
+        }
+
+        .card-date {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.65rem;
+            color: var(--muted);
+            letter-spacing: 0.05em;
+        }
+
+        .card-tag {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.6rem;
+            padding: 3px 9px;
+            border-radius: 3px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .tag-hardware  { background: rgba(245,158,11,0.15); color: var(--accent3); border: 1px solid rgba(245,158,11,0.3); }
+        .tag-ml        { background: rgba(124,58,237,0.15); color: #a78bfa; border: 1px solid rgba(124,58,237,0.3); }
+        .tag-software  { background: rgba(0,212,255,0.1);  color: var(--accent); border: 1px solid rgba(0,212,255,0.3); }
+        .tag-aerospace { background: rgba(16,185,129,0.12); color: #34d399; border: 1px solid rgba(16,185,129,0.3); }
+        .tag-simulation{ background: rgba(239,68,68,0.12); color: #f87171; border: 1px solid rgba(239,68,68,0.3); }
+        .tag-research  { background: rgba(99,102,241,0.12); color: #818cf8; border: 1px solid rgba(99,102,241,0.3); }
+
+        .card h2 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.3;
+        }
+
+        .card h3 {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .card p {
+            font-size: 0.875rem;
+            color: var(--muted);
+            line-height: 1.65;
+            flex: 1;
+        }
+
+        .card-bullets {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .card-bullets li {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            padding-left: 14px;
+            position: relative;
+            line-height: 1.5;
+        }
+
+        .card-bullets li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-size: 0.65rem;
+            top: 2px;
+        }
+
+        .card-footer {
+            display: flex;
+            gap: 10px;
+            margin-top: 6px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.68rem;
+            padding: 8px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            font-weight: 700;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--bg);
+            border: 1px solid var(--accent);
+        }
+
+        .btn-primary:hover {
+            background: #00aacc;
+            border-color: #00aacc;
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--muted);
+            border: 1px solid var(--border);
+        }
+
+        .btn-ghost:hover {
+            color: var(--text);
+            border-color: var(--muted);
+        }
+
+        .no-link {
+            opacity: 0.4;
+            cursor: default;
+            pointer-events: none;
+        }
+
+        /* ── featured card (spans 2 cols) ── */
+        .card-featured {
+            grid-column: span 2;
+        }
+
+        .card-featured .card-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        @media (max-width: 800px) {
+            .card-featured { grid-column: span 1; }
+            .card-featured .card-body { grid-template-columns: 1fr; }
+            .projects-grid { grid-template-columns: 1fr; }
+        }
+
+        /* ── section dividers ── */
+        .section-label {
+            position: relative;
+            z-index: 1;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--accent3);
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            text-align: center;
+            padding: 32px 20px 20px;
+        }
+
+        .section-label::before, .section-label::after {
+            content: '──────';
+            margin: 0 16px;
+            color: var(--border);
+        }
+
+        /* ── footer ── */
+        footer {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid var(--border);
+            color: var(--muted);
+            font-size: 0.85rem;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+        }
+
+        footer a:hover { text-decoration: underline; }
+
+        /* hide cards when filtered out */
+        .card.hidden { display: none; }
+    </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <div class="nav-logo">AB_</div>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#achievements">Awards</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-</nav>
+<header class="site-header">
+    <div class="logo">AB / Projects</div>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="#" style="color:var(--accent)">Projects</a>
+        <a href="https://github.com/IITIANAyush" target="_blank">GitHub ↗</a>
+    </nav>
+</header>
 
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-grid-bg"></div>
-  <div class="hero-orb"></div>
-  <div class="hero-orb2"></div>
-  <div class="hero-tag">// B.Tech Aerospace · IIT Bombay · 2023–Present</div>
-  <h1 class="hero-name">Ayush<br><span>Bhaskar</span></h1>
-  <p class="hero-sub">Building autonomous systems at the intersection of aerospace engineering, robotics, and machine learning.</p>
-  <div class="hero-pills">
-    <span class="pill accent">UAV Systems</span>
-    <span class="pill accent2">Computer Vision</span>
-    <span class="pill accent3">Robotics · ROS2</span>
-    <span class="pill">Multibody Dynamics</span>
-    <span class="pill">LLM Pipelines</span>
-    <span class="pill">Hardware Prototyping</span>
-  </div>
-  <div class="hero-cta">
-    <a href="#projects" class="btn btn-primary">View Projects</a>
-    <a href="mailto:bhaskarayush2005@gmail.com" class="btn btn-outline">Get in Touch</a>
-  </div>
-  <div class="hero-stats">
-    <div>
-      <div class="stat-val">Top 0.5%</div>
-      <div class="stat-label">JEE Mains 2023</div>
-    </div>
-    <div>
-      <div class="stat-val">10+</div>
-      <div class="stat-label">Technical Projects</div>
-    </div>
-    <div>
-      <div class="stat-val">Top 79</div>
-      <div class="stat-label">Flipkart Grid 6.0 <br>out of 3500+ teams</div>
-    </div>
-    <div>
-      <div class="stat-val">NTSE</div>
-      <div class="stat-label">National Scholar</div>
-    </div>
-  </div>
+<section class="hero">
+    <div class="hero-label">// portfolio.projects</div>
+    <h1>Engineering Projects</h1>
+    <p>Robotics · Aerospace · ML/AI · Software — built at IIT Bombay and beyond.</p>
 </section>
 
-<!-- ABOUT -->
-<section id="about">
-  <div class="section-label">01 / About</div>
-  <h2 class="section-title">Who I Am</h2>
-  <div class="about-grid reveal">
-    <div class="about-text">
-      <p>I'm Ayush Bhaskar, a B.Tech student in Aerospace Engineering at IIT Bombay. I build things that move, sense, and think — from autonomous drones and robotic navigators to ML-powered vision systems and LLM-driven swarm controllers.</p>
-      <p>My work spans the full stack: Euler–Lagrange dynamics modelling, ROS2 navigation stacks, computer vision pipelines, and consumer-grade hardware prototyping. I'm equally at home deriving equations on paper and soldering circuits on a bench.</p>
-      <p>Beyond engineering, I'm interested in Finance, Management, and how technology changes business. I've competed in national-level exams, mentored juniors, and led a 10-member club organising competitions for 80+ teams.</p>
-    </div>
-    <div class="about-highlights">
-      <div class="highlight-card">
-        <h4>🚁 Aerospace & UAVs</h4>
-        <p>Tilt-rotor VTOL modelling, PX4 flight controllers, RC aircraft design, PID tuning, coaxial drive systems.</p>
-      </div>
-      <div class="highlight-card">
-        <h4>🤖 Robotics & Navigation</h4>
-        <p>ROS2, SLAM, A* & GVD path planning, LiDAR-based autonomous mapping, TurtleBot3 implementation.</p>
-      </div>
-      <div class="highlight-card">
-        <h4>🧠 ML & Computer Vision</h4>
-        <p>TensorFlow, OpenCV, SIFT image matching, BERT NLP, swarm intelligence driven by LLM chains.</p>
-      </div>
-      <div class="highlight-card">
-        <h4>⚙️ Hardware Prototyping</h4>
-        <p>3D printing, laser cutting, PCB assembly, piezo sensors, I2C/SPI, BLDC motors, ATmega & ESP32.</p>
-      </div>
-    </div>
-  </div>
-</section>
+<div class="filter-bar">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="hardware">Hardware</button>
+    <button class="filter-btn" data-filter="aerospace">Aerospace</button>
+    <button class="filter-btn" data-filter="simulation">Simulation</button>
+    <button class="filter-btn" data-filter="ml">ML / AI</button>
+    <button class="filter-btn" data-filter="software">Software</button>
+    <button class="filter-btn" data-filter="research">Research</button>
+</div>
 
-<!-- SKILLS -->
-<section id="skills">
-  <div class="section-label">02 / Skills</div>
-  <h2 class="section-title">Technical Toolkit</h2>
-  <div class="skills-grid reveal">
+<div class="projects-grid">
 
-    <div class="skill-category">
-      <div class="skill-cat-header">
-        <div class="skill-cat-icon" style="background:rgba(0,212,255,0.1);">🤖</div>
-        <span class="skill-cat-name">Robotics</span>
-      </div>
-      <div class="skill-tags">
-        <span class="skill-tag">ROS2</span><span class="skill-tag">Gazebo</span><span class="skill-tag">SLAM</span>
-        <span class="skill-tag">Nav2</span><span class="skill-tag">A* Planning</span><span class="skill-tag">GVD</span>
-        <span class="skill-tag">LiDAR</span><span class="skill-tag">IMU</span><span class="skill-tag">TurtleBot3</span>
-        <span class="skill-tag">AMCL</span>
-      </div>
+    <!-- ═══════════════════════════════════════════════
+         RECENT / 2025–26
+    ═══════════════════════════════════════════════ -->
+
+    <!-- CLT MATLAB -->
+    <div class="card" data-category="simulation research" id="clt">
+        <div class="card-top">
+            <div class="card-icon">🧱</div>
+            <div class="card-meta">
+                <span class="card-date">Jan '26 – Feb '26</span>
+                <span class="card-tag tag-simulation">Simulation</span>
+            </div>
+        </div>
+        <h3>Structures / Composites</h3>
+        <h2>Classical Lamination Theory — MATLAB</h2>
+        <p>Full CLT implementation for multi-layer composite laminates: ABD matrix assembly, stress/strain analysis, and failure prediction across arbitrary ply orientations.</p>
+        <ul class="card-bullets">
+            <li>Computes extensional (A), coupling (B), and bending (D) stiffness matrices</li>
+            <li>Supports angle-ply, cross-ply, quasi-isotropic and custom stacking sequences</li>
+            <li>Generates stress/strain distributions through laminate thickness</li>
+        </ul>
+        <div class="card-footer">
+            <a class="btn btn-primary" href="https://github.com/IITIANAyush/Classical_Lamination_Theory_CLT_MATLAB_Implementation" target="_blank">⇢ GitHub Repo</a>
+        </div>
     </div>
 
-    <div class="skill-category">
-      <div class="skill-cat-header">
-        <div class="skill-cat-icon" style="background:rgba(255,107,53,0.1);">🧠</div>
-        <span class="skill-cat-name">ML / Vision</span>
-      </div>
-      <div class="skill-tags">
-        <span class="skill-tag orange">TensorFlow</span><span class="skill-tag orange">OpenCV</span>
-        <span class="skill-tag orange">Scikit-learn</span><span class="skill-tag orange">NLTK</span>
-        <span class="skill-tag orange">Hugging Face</span><span class="skill-tag orange">Pandas</span>
-        <span class="skill-tag orange">NumPy</span><span class="skill-tag orange">SIFT</span>
-        <span class="skill-tag orange">Tesseract OCR</span>
-      </div>
+    <!-- Navigation Guidance Estimation -->
+    <div class="card" data-category="simulation research" id="nav-guidance">
+        <div class="card-top">
+            <div class="card-icon">🎯</div>
+            <div class="card-meta">
+                <span class="card-date">Jan '26 – Feb '26</span>
+                <span class="card-tag tag-research">Research</span>
+            </div>
+        </div>
+        <h3>GNC / Controls</h3>
+        <h2>Navigation, Guidance & Estimation Algorithms</h2>
+        <p>Implementation and analysis of state estimation and missile guidance laws — Kalman Filters (EKF/UKF) and Deviated Pursuit guidance in Python/Jupyter.</p>
+        <ul class="card-bullets">
+            <li>Extended & Unscented Kalman Filter for nonlinear state estimation</li>
+            <li>Deviated Pursuit and proportional navigation guidance laws</li>
+            <li>Monte-Carlo simulation of trajectory uncertainty envelopes</li>
+        </ul>
+        <div class="card-footer">
+            <a class="btn btn-primary" href="https://github.com/IITIANAyush/navigation-guidance-estimation-algorithms" target="_blank">⇢ GitHub Repo</a>
+        </div>
     </div>
 
-    <div class="skill-category">
-      <div class="skill-cat-header">
-        <div class="skill-cat-icon" style="background:rgba(127,255,95,0.1);">📐</div>
-        <span class="skill-cat-name">Dynamics & Control</span>
-      </div>
-      <div class="skill-tags">
-        <span class="skill-tag green">Euler–Lagrange</span><span class="skill-tag green">Kalman Filter</span>
-        <span class="skill-tag green">PID / LQR</span><span class="skill-tag green">State-Space</span>
-        <span class="skill-tag green">6-DOF Modelling</span><span class="skill-tag green">SVD ID</span>
-        <span class="skill-tag green">Multibody Dynamics</span>
-      </div>
+    <!-- ROS Gazebo -->
+    <div class="card" data-category="simulation software" id="ros-gazebo">
+        <div class="card-top">
+            <div class="card-icon">🤖</div>
+            <div class="card-meta">
+                <span class="card-date">Jan '26 – Feb '26</span>
+                <span class="card-tag tag-simulation">Simulation</span>
+            </div>
+        </div>
+        <h3>Robotics / Path Planning</h3>
+        <h2>ROS 2 + Gazebo Path Planning Simulations</h2>
+        <p>ROS 2 / Gazebo-based simulations testing A* and Generalized Voronoi Diagram (GVD) algorithms for autonomous path generation and robot following.</p>
+        <ul class="card-bullets">
+            <li>A* search on occupancy grid maps with dynamic obstacle support</li>
+            <li>GVD skeleton extraction for safer path corridors</li>
+            <li>Full sim loop: world spawn → planning → robot navigation</li>
+        </ul>
+        <div class="card-footer">
+            <a class="btn btn-primary" href="https://github.com/IITIANAyush/ROS_Gazebo_based_Simulations" target="_blank">⇢ GitHub Repo</a>
+        </div>
     </div>
 
-    <div class="skill-category">
-      <div class="skill-cat-header">
-        <div class="skill-cat-icon" style="background:rgba(180,120,255,0.1);">💻</div>
-        <span class="skill-cat-name">Programming</span>
-      </div>
-      <div class="skill-tags">
-        <span class="skill-tag purple">Python</span><span class="skill-tag purple">C / C++</span>
-        <span class="skill-tag purple">MATLAB</span><span class="skill-tag purple">Arduino</span>
-        <span class="skill-tag purple">SQL</span><span class="skill-tag purple">LaTeX</span>
-        <span class="skill-tag purple">HTML/CSS/JS</span>
-      </div>
+    <!-- Gas Table Calculator -->
+    <div class="card" data-category="software aerospace" id="gas-table">
+        <div class="card-top">
+            <div class="card-icon">💨</div>
+            <div class="card-meta">
+                <span class="card-date">Jan '26 – Feb '26</span>
+                <span class="card-tag tag-software">Software</span>
+            </div>
+        </div>
+        <h3>Aerospace / Compressible Flow</h3>
+        <h2>Gas Dynamics Table Calculator</h2>
+        <p>Modular Python calculator implementing isentropic, normal shock, and oblique shock relations with weak/strong solution branches and a numerical θ–β–M solver.</p>
+        <ul class="card-bullets">
+            <li>Isentropic flow relations (P/P₀, T/T₀, A/A*) for arbitrary Mach</li>
+            <li>Normal and oblique shock solvers with both wave-angle branches</li>
+            <li>Interactive CLI + importable library interface</li>
+        </ul>
+        <div class="card-footer">
+            <a class="btn btn-primary" href="https://github.com/IITIANAyush/Gas-Table-Calculator" target="_blank">⇢ GitHub Repo</a>
+        </div>
     </div>
 
-    <div class="skill-category">
-      <div class="skill-cat-header">
-        <div class="skill-cat-icon" style="background:rgba(255,220,50,0.1);">🔬</div>
-        <span class="skill-cat-name">Simulation & CAD</span>
-      </div>
-      <div class="skill-tags">
-        <span class="skill-tag yellow">MATLAB/Simulink</span><span class="skill-tag yellow">Simscape</span>
-        <span class="skill-tag yellow">ANSYS FEA/CFD</span><span class="skill-tag yellow">Fusion 360</span>
-        <span class="skill-tag yellow">SolidWorks</span><span class="skill-tag yellow">OpenVSP</span>
-        <span class="skill-tag yellow">CoppeliaSim</span><span class="skill-tag yellow">Qblade</span>
-      </div>
+    <!-- Fully Actuated Drone -->
+    <div class="card" data-category="aerospace simulation" id="fa-drone">
+        <div class="card-top">
+            <div class="card-icon">🚁</div>
+            <div class="card-meta">
+                <span class="card-date">Jan '26</span>
+                <span class="card-tag tag-aerospace">Aerospace</span>
+            </div>
+        </div>
+        <h3>UAV / Controls</h3>
+        <h2>Fully Actuated Drone via Thrust Vectoring — MATLAB</h2>
+        <p>MATLAB simulation of a fully-actuated thrust-vectoring quadrotor achieving independent 6-DOF force and torque control — decoupled position and attitude.</p>
+        <ul class="card-bullets">
+            <li>Thrust-vectoring geometry enables forces in all 6 degrees of freedom</li>
+            <li>Nonlinear dynamic model + geometric controller implementation</li>
+            <li>Comparative sim: over-actuated vs standard quadrotor trajectories</li>
+        </ul>
+        <div class="card-footer">
+            <a class="btn btn-primary" href="https://github.com/IITIANAyush/fully_actuated_drone_via_thrust_vectoring" target="_blank">⇢ GitHub Repo</a>
+        </div>
     </div>
 
-    <div class="skill-category">
-      <div class="skill-cat-header">
-        <div class="skill-cat-icon" style="background:rgba(0,212,255,0.1);">🛠️</div>
-        <span class="skill-cat-name">Hardware & Fabrication</span>
-      </div>
-      <div class="skill-tags">
-        <span class="skill-tag">3D Printing</span><span class="skill-tag">Laser Cutting</span>
-        <span class="skill-tag">Soldering</span><span class="skill-tag">I2C / SPI</span>
-        <span class="skill-tag">BLDC Motors</span><span class="skill-tag">Piezo Sensors</span>
-        <span class="skill-tag">ESP32 / ATmega</span><span class="skill-tag">PX4 / iNav</span>
-      </div>
+    <!-- Tilt Rotor VTOL -->
+    <div class="card" data-category="aerospace simulation" id="vtol">
+        <div class="card-top">
+            <div class="card-icon">✈️</div>
+            <div class="card-meta">
+                <span class="card-date">Jan '26</span>
+                <span class="card-tag tag-aerospace">Aerospace</span>
+            </div>
+        </div>
+        <h3>UAV / Analytical Model</h3>
+        <h2>Tilt-Rotor Fixed-Wing VTOL — Analytical Model</h2>
+        <p>Analytical model of a tilt-rotor fixed-wing VTOL aircraft capturing transition dynamics between hover and forward flight modes.</p>
+        <ul class="card-bullets">
+            <li>Rigid-body equations of motion for hybrid hover/cruise flight</li>
+            <li>Transition corridor analysis — rotor tilt angle vs airspeed</li>
+            <li>Power and efficiency comparison across flight phases</li>
+        </ul>
+        <div class="card-footer">
+            <a class="btn btn-primary" href="https://github.com/IITIANAyush/tilt_rotor_vtol" target="_blank">⇢ GitHub Repo</a>
+        </div>
     </div>
 
-  </div>
-</section>
-
-<!-- EXPERIENCE -->
-<section id="experience">
-  <div class="section-label">03 / Experience</div>
-  <h2 class="section-title">Professional</h2>
-  <div class="reveal">
-    <div class="exp-card">
-      <div class="exp-top">
-        <span class="exp-company">Skaleups</span>
-        <span class="exp-date">Jul – Aug 2025</span>
-      </div>
-      <div class="exp-role">Product Development Intern — Consumer Hardware</div>
-      <ul class="exp-bullets">
-        <li>Led end-to-end lifecycle from concept to functional prototype of a consumer handheld electromechanical gaming device.</li>
-        <li>Designed impact-detection subsystem using piezoelectric sensors with Arduino-based noise filtering and threshold logic.</li>
-        <li>Iterated rapidly using laser cutting and 3D printing; conducted systematic material selection and cost estimation against consumer-grade constraints.</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- PROJECTS -->
-<section id="projects">
-  <div class="section-label">04 / Projects</div>
-  <h2 class="section-title">Selected Work</h2>
-  <div class="projects-grid reveal">
-
-    <div class="project-card">
-      <span class="project-badge badge-key">Key Project</span>
-      <div class="project-number">01</div>
-      <div class="project-title">GenSwarm — LLM-Driven Swarm Controller</div>
-      <div class="project-subtitle">Multi-Robot Intelligence</div>
-      <p class="project-desc">Built a natural-language swarm controller using a 4-stage LLM chain (constraint parsing → skill synthesis → code generation → review). Simulated 10–50 robot swarms achieving emergent formations (hearts, stars, spirals) without hand-coded geometry. Reduced hallucinations and token cost by 40% via a hybrid codegen pipeline.</p>
-      <div class="project-tech">
-        <span class="tech-badge">Python</span><span class="tech-badge">Groq LLM</span><span class="tech-badge">Pygame</span><span class="tech-badge">AST Validation</span>
-      </div>
+    <!-- Thin Airfoil Theory -->
+    <div class="card" data-category="aerospace simulation" id="airfoil">
+        <div class="card-top">
+            <div class="card-icon">🪃</div>
+            <div class="card-meta">
+                <span class="card-date">Jan '26</span>
+                <span class="card-tag tag-aerospace">Aerospace</span>
+            </div>
+        </div>
+        <h3>Aerodynamics</h3>
+        <h2>Thin Airfoil Theory Simulation Toolkit</h2>
+        <p>Python/Jupyter toolkit implementing TAT: lift curves, camber behavior, velocity fields, and circulation for NACA and custom airfoil profiles.</p>
+        <ul class="card-bullets">
+            <li>NACA 4/5-series and arbitrary camber-line analysis</li>
+            <li>Lift coefficient vs AoA with moment coefficient computation</li>
+            <li>Interactive velocity field and streamline visualization</li>
+        </ul>
+        <div class="card-footer">
+            <a class="btn btn-primary" href="https://github.com/IITIANAyush/Thin-Airfoil-Theory-based-simulations" target="_blank">⇢ GitHub Repo</a>
+        </div>
     </div>
 
-    <div class="project-card">
-      <span class="project-badge badge-key">Key Project</span>
-      <div class="project-number">02</div>
-      <div class="project-title">Dual-Planner Autonomous Navigation</div>
-      <div class="project-subtitle">ROS2 / Gazebo / TurtleBot3</div>
-      <p class="project-desc">Full ROS2 navigation stack with Gazebo digital-twin, SLAM-based occupancy-grid mapping (Kartographer), and C-space obstacle inflation. Implemented both A* (priority-queue, Euclidean heuristic) and GVD/Medial-Axis safety planners. Achieved 3 cm accuracy over desired path on a real TurtleBot.</p>
-      <div class="project-tech">
-        <span class="tech-badge">ROS2</span><span class="tech-badge">Gazebo</span><span class="tech-badge">SLAM</span><span class="tech-badge">Python</span>
-      </div>
+    <!-- Thickness Estimation Software ← INDUSTRIAL PROJECT -->
+    <div class="card card-featured" data-category="software ml" id="thickness">
+        <div class="card-top">
+            <div class="card-icon">📏</div>
+            <div class="card-meta">
+                <span class="card-date">2025</span>
+                <span class="card-tag tag-ml">Industrial · ML</span>
+            </div>
+        </div>
+        <h3>Industrial Computer Vision</h3>
+        <h2>Thickness Estimation Software</h2>
+        <div class="card-body">
+            <div>
+                <p>Industrial-grade software for non-contact thickness measurement using computer vision and machine learning. Designed for real-time deployment on production lines with sub-millimeter accuracy requirements.</p>
+                <ul class="card-bullets" style="margin-top:12px">
+                    <li>Real-time thickness estimation from camera feed using CV pipeline</li>
+                    <li>Calibration module for camera-to-physical-unit mapping</li>
+                    <li>Edge detection and surface profile extraction via OpenCV</li>
+                </ul>
+            </div>
+            <div>
+                <ul class="card-bullets">
+                    <li>ML-based correction for lighting variance and surface reflectance</li>
+                    <li>GUI dashboard for live readouts, alerting, and logging</li>
+                    <li>Exportable measurement data for quality-control integration</li>
+                    <li>Designed to industrial accuracy standards for production deployment</li>
+                </ul>
+            </div>
+        </div>
+        <div class="card-footer">
+            <a class="btn btn-ghost no-link" href="#">⇢ Private / Proprietary</a>
+        </div>
     </div>
 
-    <div class="project-card">
-      <span class="project-badge badge-key">Key Project</span>
-      <div class="project-number">03</div>
-      <div class="project-title">Tilt-Rotor VTOL Modelling & Simulation</div>
-      <div class="project-subtitle">Guide: Prof. Sukumar Srikant · IIT Bombay</div>
-      <p class="project-desc">Developed a 3-body, 8-DOF nonlinear multibody model using Euler–Lagrange formulation with 12+ coupled equations. Validated against a 50+ block Simulink/Simscape model achieving 95–98% agreement. SVD-based system ID reduced computational complexity by 60%.</p>
-      <div class="project-tech">
-        <span class="tech-badge">MATLAB</span><span class="tech-badge">Simulink</span><span class="tech-badge">Simscape</span><span class="tech-badge">Python</span>
-      </div>
+    <!-- DabbaXMobile -->
+    <div class="card" data-category="software" id="dabba">
+        <div class="card-top">
+            <div class="card-icon">📱</div>
+            <div class="card-meta">
+                <span class="card-date">Nov '25</span>
+                <span class="card-tag tag-software">Software</span>
+            </div>
+        </div>
+        <h3>App Development</h3>
+        <h2>DabbaXMobile</h2>
+        <p>Mobile-facing TypeScript application — full-stack development project exploring food-delivery or tiffin-service logistics domain.</p>
+        <ul class="card-bullets">
+            <li>TypeScript-first frontend and backend architecture</li>
+            <li>REST API integration for real-time order management</li>
+        </ul>
+        <div class="card-footer">
+            <a class="btn btn-primary" href="https://github.com/IITIANAyush/Dabbaxmobile" target="_blank">⇢ GitHub Repo</a>
+        </div>
     </div>
 
-    <div class="project-card">
-      <span class="project-badge badge-key">Key Project</span>
-      <div class="project-number">04</div>
-      <div class="project-title">SIFT Satellite Image Matching & Runway Detection</div>
-      <div class="project-subtitle">Computer Vision Pipeline</div>
-      <p class="project-desc">Scale- and rotation-invariant satellite image matching using SIFT descriptors with BFMatcher + Lowe's Ratio Test and RANSAC homography estimation. Interactive Streamlit tool for real-time comparison. Achieved 1500+ reliable matches from 4000+ keypoints across geometric and photometric variations.</p>
-      <div class="project-tech">
-        <span class="tech-badge">OpenCV</span><span class="tech-badge">Python</span><span class="tech-badge">SIFT</span><span class="tech-badge">Streamlit</span>
-      </div>
+    <!-- Learning ML -->
+    <div class="card" data-category="ml research" id="learning-ml">
+        <div class="card-top">
+            <div class="card-icon">🧠</div>
+            <div class="card-meta">
+                <span class="card-date">2025 – Ongoing</span>
+                <span class="card-tag tag-ml">ML / DL</span>
+            </div>
+        </div>
+        <h3>Machine Learning</h3>
+        <h2>ML & Deep Learning Explorations</h2>
+        <p>Self-learning repository implementing diverse ML and deep learning ideas — from classic algorithms to neural architectures on real-world datasets.</p>
+        <ul class="card-bullets">
+            <li>Supervised, unsupervised, and reinforcement learning experiments</li>
+            <li>CNN, RNN, and Transformer implementations from scratch</li>
+            <li>Dataset wrangling and end-to-end training pipelines</li>
+        </ul>
+        <div class="card-footer">
+            <a class="btn btn-primary" href="https://github.com/IITIANAyush/Learning_ML" target="_blank">⇢ GitHub Repo</a>
+        </div>
     </div>
 
-    <div class="project-card">
-      <span class="project-badge badge-key">Key Project</span>
-      <div class="project-number">05</div>
-      <div class="project-title">Autonomous Hoop Detection & Ball Shooter</div>
-      <div class="project-subtitle">Guide: Prof. Prasanna Gandhi · IIT Bombay</div>
-      <p class="project-desc">Vision-based target localization using adaptive Canny edge detection, contour filtering, and polygon approximation. Camera calibrated via pinhole projection for real-world distance estimation. Closed-loop PID alignment controller achieving ≤2° angular error with autonomous detect → align → shoot pipeline.</p>
-      <div class="project-tech">
-        <span class="tech-badge">OpenCV</span><span class="tech-badge">PID</span><span class="tech-badge">MATLAB</span><span class="tech-badge">Python</span>
-      </div>
+    <!-- ═══════════════════════════════════════════════
+         EARLIER PROJECTS
+    ═══════════════════════════════════════════════ -->
+
+    <!-- VAMPIRE -->
+    <div class="card" data-category="hardware" id="VAMPIRE">
+        <div class="card-top">
+            <div class="card-icon">🦇</div>
+            <div class="card-meta">
+                <span class="card-date">Jun '24 – Aug '24</span>
+                <span class="card-tag tag-hardware">Hardware</span>
+            </div>
+        </div>
+        <h3>Hybrid Robotics</h3>
+        <h2>Project VAMPIRE — Hybrid Drone-Car</h2>
+        <p>A hybrid vehicle that reorients its motor arms to switch between quadcopter and ground-car modes — single radio transmitter controls both configurations.</p>
+        <ul class="card-bullets">
+            <li>Fusion 360 CAD with precisely calculated coaxial drive for shared tyre/propeller shaft</li>
+            <li>ATmega microcontrollers with I2C inter-MCU communication for distributed compute</li>
+            <li>MPU6050, servos, BLDCs, and power-distribution board fully integrated</li>
+            <li>Simulated and iterated circuits on TinkerCAD before hardware build</li>
+        </ul>
+        <div class="card-footer">
+            <a class="btn btn-primary" href="https://github.com/IITIANAyush/Proj_vampire_Hybrid_of_Car_and_Drone" target="_blank">⇢ GitHub Repo</a>
+        </div>
     </div>
 
-    <div class="project-card">
-      <span class="project-badge badge-key">Competition</span>
-      <div class="project-number">06</div>
-      <div class="project-title">Smart Vision — Flipkart Grid 6.0</div>
-      <div class="project-subtitle">Top 79 / 3500+ Teams</div>
-      <p class="project-desc">ML-based visual feedback system for face, object, shape, and manufacturer detection using Tesseract OCR and OpenCV from live webcam or uploaded images. Real-time OCR analysis with reusable detection code adaptable to multiple input types. Shortlisted for national finale.</p>
-      <div class="project-tech">
-        <span class="tech-badge">OpenCV</span><span class="tech-badge">Tesseract</span><span class="tech-badge">TensorFlow</span><span class="tech-badge">Python</span>
-      </div>
+    <!-- Smart Vision / Flipkart -->
+    <div class="card" data-category="ml software" id="flipkart">
+        <div class="card-top">
+            <div class="card-icon">👁️</div>
+            <div class="card-meta">
+                <span class="card-date">Jun '24 – Present</span>
+                <span class="card-tag tag-ml">ML / CV</span>
+            </div>
+        </div>
+        <h3>Computer Vision</h3>
+        <h2>Smart Vision — ML Visual Feedback System</h2>
+        <p>Real-time face, object, shape, and manufacturer-brand detection using OpenCV + Tesseract OCR. Top 80 of 3500+ teams — Flipkart Grid 6.0.</p>
+        <ul class="card-bullets">
+            <li>Live webcam or uploaded image/video as unified input pipeline</li>
+            <li>OCR text detection and on-screen overlay for downstream analysis</li>
+            <li>Manufacturer detection model trained on product label dataset</li>
+        </ul>
+        <div class="card-footer">
+            <a class="btn btn-ghost no-link" href="#">⇢ Report / Link Pending</a>
+        </div>
     </div>
 
-    <div class="project-card">
-      <span class="project-badge badge-other">Self Project</span>
-      <div class="project-number">07</div>
-      <div class="project-title">Navigation, Guidance & Estimation Algorithms</div>
-      <div class="project-subtitle">Guide: Prof. Arnab Maity</div>
-      <p class="project-desc">Discrete-time Kalman Filter implementation for 4+ state LTI system achieving stable convergence over 2000+ simulation steps. Validated via ±2σ confidence bounds. Deviated pursuit guidance simulation for missile-target engagement across multiple speed ratios and deviation angles.</p>
-      <div class="project-tech">
-        <span class="tech-badge">MATLAB</span><span class="tech-badge">Python</span><span class="tech-badge">Kalman Filter</span>
-      </div>
+    <!-- RC Plane -->
+    <div class="card" data-category="aerospace hardware" id="rcplane">
+        <div class="card-top">
+            <div class="card-icon">🛩️</div>
+            <div class="card-meta">
+                <span class="card-date">May '24 – Jun '24</span>
+                <span class="card-tag tag-aerospace">Aerospace</span>
+            </div>
+        </div>
+        <h3>Aeromodelling Club</h3>
+        <h2>Remotely Piloted Aircraft System</h2>
+        <p>Designed, manufactured, and flight-tested a stable tapered-wing RC aircraft — CG calculations, tail volume sizing, and Phoenix RC sim training.</p>
+        <ul class="card-bullets">
+            <li>Tapered wing at AR = 6 for structural strength + aerodynamic stability</li>
+            <li>Cockpit, fuselage, and empennage designed with CG and tail-volume math</li>
+            <li>Proficiency in Phoenix RC sim and on-ground ops</li>
+        </ul>
+        <div class="card-footer">
+            <a class="btn btn-ghost no-link" href="#">⇢ Report / Link Pending</a>
+        </div>
     </div>
 
-    <div class="project-card">
-      <span class="project-badge badge-other">Self Project</span>
-      <div class="project-number">08</div>
-      <div class="project-title">Project VAMPIRE — Hybrid Drone-Car</div>
-      <div class="project-subtitle">Electromechanical Design</div>
-      <p class="project-desc">Hybrid vehicle switching between car and drone modes with reorienting motor arms. ATmega-based power system, coaxial drives, and I2C communication. Designed for rapid mode switching in constrained environments.</p>
-      <div class="project-tech">
-        <span class="tech-badge">ATmega</span><span class="tech-badge">I2C</span><span class="tech-badge">BLDC</span><span class="tech-badge">CAD</span>
-      </div>
+    <!-- SOS Microcontroller Research -->
+    <div class="card" data-category="hardware research" id="sos">
+        <div class="card-top">
+            <div class="card-icon">🔬</div>
+            <div class="card-meta">
+                <span class="card-date">May '24 – Jul '24</span>
+                <span class="card-tag tag-research">Research</span>
+            </div>
+        </div>
+        <h3>Summer of Science</h3>
+        <h2>Microcontroller & Microprocessor Research</h2>
+        <p>Deep-dive into ATmega and Raspberry Pi architectures, I2C protocol, sensor integration, and flight-controller schematics — simulated and built real systems.</p>
+        <ul class="card-bullets">
+            <li>I2C multi-device communication on TinkerCAD sim and real hardware</li>
+            <li>Research into flight-controller firmware (Betaflight, ArduPilot schematics)</li>
+            <li>IoT and robotics sensor integration with programmable boards</li>
+        </ul>
+        <div class="card-footer">
+            <a class="btn btn-ghost no-link" href="#">⇢ Report / Link Pending</a>
+        </div>
     </div>
 
-    <div class="project-card">
-      <span class="project-badge badge-other">ML</span>
-      <div class="project-number">09</div>
-      <div class="project-title">Machine Learning & Data Analytics Suite</div>
-      <div class="project-subtitle">NLP · Time-Series · Regression</div>
-      <p class="project-desc">Fine-tuned BERT for sentiment analysis (89.9% accuracy). Built regression models predicting student performance. Univariate time-series forecasting using ACF/PACF and AR modelling. Structured data analysis and forecasting with SQL-driven pipelines.</p>
-      <div class="project-tech">
-        <span class="tech-badge">TensorFlow</span><span class="tech-badge">Scikit-learn</span><span class="tech-badge">SQL</span><span class="tech-badge">BERT</span>
-      </div>
+    <!-- IMU Rover -->
+    <div class="card" data-category="hardware" id="xlr8">
+        <div class="card-top">
+            <div class="card-icon">🚗</div>
+            <div class="card-meta">
+                <span class="card-date">Aug '23</span>
+                <span class="card-tag tag-hardware">Hardware</span>
+            </div>
+        </div>
+        <h3>XLR8 Robotics Club</h3>
+        <h2>IMU-Controlled Rocker-Bogie Rover</h2>
+        <p>Terrain-optimized rocker-bogie rover with an ESP32 + IMU-based joystick controller communicating over Wi-Fi — built for competition.</p>
+        <ul class="card-bullets">
+            <li>ESP01 ↔ ESP32 Wi-Fi link streams joystick IMU tilt data to rover</li>
+            <li>Custom rocker-bogie geometry for stable CoG on uneven terrain</li>
+            <li>Self-contained wireless joystick with onboard IMU + power supply</li>
+        </ul>
+        <div class="card-footer">
+            <a class="btn btn-ghost no-link" href="#">⇢ Report / Link Pending</a>
+        </div>
     </div>
 
-  </div>
-</section>
+    <!-- UTM -->
+    <div class="card" data-category="hardware" id="utm">
+        <div class="card-top">
+            <div class="card-icon">⚙️</div>
+            <div class="card-meta">
+                <span class="card-date">Nov '23</span>
+                <span class="card-tag tag-hardware">Hardware</span>
+            </div>
+        </div>
+        <h3>Course Project</h3>
+        <h2>Universal Testing Machine</h2>
+        <p>Mini UTM for tensile strength testing — laser-cut acrylic frame, 3D-printed grips, lead-screw actuation with gear-ratio optimized for maximum torque.</p>
+        <ul class="card-bullets">
+            <li>Laser-cut 3 mm & 5 mm acrylic sheet structural frame</li>
+            <li>3D-printed grip clamps with textured pattern for sample retention</li>
+            <li>Motor + gear ratio selected to maximise lead-screw torque output</li>
+        </ul>
+        <div class="card-footer">
+            <a class="btn btn-ghost no-link" href="#">⇢ Report / Link Pending</a>
+        </div>
+    </div>
 
-<!-- ACHIEVEMENTS -->
-<section id="achievements">
-  <div class="section-label">05 / Achievements</div>
-  <h2 class="section-title">Awards & Recognition</h2>
-  <div class="achievements-grid reveal">
-    <div class="achievement-card">
-      <div class="achievement-icon">🏆</div>
-      <div class="achievement-text">
-        <h4>JEE Mains — National Top 0.5%</h4>
-        <p>Out of 1.11 million+ candidates nationwide, 2023.</p>
-      </div>
+    <!-- Intro to ML / NLP -->
+    <div class="card" data-category="ml research" id="intro-ml">
+        <div class="card-top">
+            <div class="card-icon">📊</div>
+            <div class="card-meta">
+                <span class="card-date">Jul '25</span>
+                <span class="card-tag tag-ml">ML / NLP</span>
+            </div>
+        </div>
+        <h3>Machine Learning</h3>
+        <h2>Intro to ML & NLP — Personalised Datasets</h2>
+        <p>Foundational ML and data-science project: modelling, training, and evaluating models on custom-built datasets using standard Python libraries.</p>
+        <ul class="card-bullets">
+            <li>End-to-end pipeline: data collection → pre-processing → training → eval</li>
+            <li>NLP tasks: tokenization, text classification, and sentiment analysis</li>
+            <li>Sklearn, Pandas, Matplotlib, and NLTK toolkit usage</li>
+        </ul>
+        <div class="card-footer">
+            <a class="btn btn-primary" href="https://github.com/IITIANAyush/Intro_to_ML-_and_NLP" target="_blank">⇢ GitHub Repo</a>
+        </div>
     </div>
-    <div class="achievement-card">
-      <div class="achievement-icon">🎯</div>
-      <div class="achievement-text">
-        <h4>JEE Advanced — National Top 4%</h4>
-        <p>Out of 180,000+ candidates. Secured IIT Bombay.</p>
-      </div>
-    </div>
-    <div class="achievement-card">
-      <div class="achievement-icon">📜</div>
-      <div class="achievement-text">
-        <h4>NTSE National Scholarship</h4>
-        <p>National Talent Search Exam — nationwide academic excellence.</p>
-      </div>
-    </div>
-    <div class="achievement-card">
-      <div class="achievement-icon">🔭</div>
-      <div class="achievement-text">
-        <h4>KVPY Rank 1948</h4>
-        <p>Kishore Vaigyanik Protsahan Yojana — science & research aptitude.</p>
-      </div>
-    </div>
-    <div class="achievement-card">
-      <div class="achievement-icon">📐</div>
-      <div class="achievement-text">
-        <h4>Indian Olympiad Mathematics — Top 300</h4>
-        <p>From 8th to 11th grade cohort, national qualifier.</p>
-      </div>
-    </div>
-    <div class="achievement-card">
-      <div class="achievement-icon">🥈</div>
-      <div class="achievement-text">
-        <h4>Ascent Rocketry — 2nd Place</h4>
-        <p>Rocket simulation on OpenRocket software, IITB 2024.</p>
-      </div>
-    </div>
-    <div class="achievement-card">
-      <div class="achievement-icon">🚀</div>
-      <div class="achievement-text">
-        <h4>Flipkart Grid 6.0 — Top 79</h4>
-        <p>Shortlisted from 3,500+ teams for the national finale.</p>
-      </div>
-    </div>
-    <div class="achievement-card">
-      <div class="achievement-icon">👨‍🏫</div>
-      <div class="achievement-text">
-        <h4>Mentor — 3 TSP Teams + 4 SoS Students</h4>
-        <p>Technical Summer Project & Summer of Science, IIT Bombay 2025.</p>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- EDUCATION -->
-<section id="education">
-  <div class="section-label">06 / Education</div>
-  <h2 class="section-title">Academic Background</h2>
-  <div class="edu-timeline reveal">
-    <div class="edu-item">
-      <div class="edu-dot">IIT</div>
-      <div class="edu-content">
-        <h3>Indian Institute of Technology Bombay</h3>
-        <div class="edu-degree">B.Tech Aerospace Engineering</div>
-        <div class="edu-date">2023 – Present</div>
-        <p style="font-size:0.82rem;color:var(--muted);margin-top:8px;">Coursework: Machine Learning · Robotics · Signal Processing · Control Systems · Linear Algebra · Simulations</p>
-      </div>
-    </div>
-    <div class="edu-item">
-      <div class="edu-dot">12</div>
-      <div class="edu-content">
-        <h3>Lord Buddha Public School, Kota</h3>
-        <div class="edu-degree">Class XII — CBSE (93.2%)</div>
-        <div class="edu-date">2022 – 2023</div>
-      </div>
-    </div>
-    <div class="edu-item">
-      <div class="edu-dot">10</div>
-      <div class="edu-content">
-        <h3>Central Railway School, Kalyan</h3>
-        <div class="edu-degree">Class X — CBSE</div>
-        <div class="edu-date">–2021</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- LEADERSHIP -->
-<section id="leadership">
-  <div class="section-label">07 / Leadership</div>
-  <h2 class="section-title">Responsibilities & Extracurriculars</h2>
-  <div class="leadership-grid reveal">
-    <div class="leadership-card">
-      <h4>Aeromodelling Club, IIT Bombay</h4>
-      <span class="role-tag">Technical Convener · Apr 2024 – Mar 2025</span>
-      <p>Part of 10-member core team. Organised annual RC Plane Competition (80+ teams, 340+ participants, 50+ mentors). Conducted iNav flight-control workshops. Managed logistics for AE229 lab (80+ students). 3000+ follower club Instagram.</p>
-    </div>
-    <div class="leadership-card">
-      <h4>Inter IIT Tech Meet 13.0</h4>
-      <span class="role-tag">Event Coordinator · Dec 2024</span>
-      <p>Coordinated cross-IIT technical competitions. Managed company outreach for R&D Expo. Invigilated HBCSE and Ideaforge problem statements.</p>
-    </div>
-    <div class="leadership-card">
-      <h4>Department Academic Mentor</h4>
-      <span class="role-tag">2025–2026</span>
-      <p>Active department academic mentor guiding 6 second-year Aerospace students through coursework and research for a full academic year.</p>
-    </div>
-    <div class="leadership-card">
-      <h4>Technical Competitions</h4>
-      <span class="role-tag">2024–2025</span>
-      <p>Participated in NIDAR and Eyantra robotics competitions. Mentored 2 teams for the XLR8 IMU-controlled bot competition (2024). Competed in Ascent Rocketry (2nd place). Active chess player in intra-institute competitions.</p>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact">
-  <div class="section-label">08 / Contact</div>
-  <h2 class="section-title" style="margin-bottom: 16px;">Let's Build Together</h2>
-  <p style="color:var(--muted); max-width: 480px; margin: 0 auto 8px;">Open to research collaborations, internships, and interesting problems in robotics, aerospace, or ML.</p>
-  <a href="mailto:bhaskarayush2005@gmail.com" class="contact-email">bhaskarayush2005@gmail.com</a>
-  <div class="contact-links">
-    <a href="https://in.linkedin.com/in/ayush-bhaskar-232796282" target="_blank" class="contact-link">LinkedIn</a>
-    <a href="https://github.com/IITIANAyush" target="_blank" class="contact-link">GitHub</a>
-    <a href="tel:8433857661" class="contact-link">+91 8433857661</a>
-  </div>
-</section>
+</div>
 
 <footer>
-  <span>© 2026 Ayush Bhaskar</span>
-  <span style="font-family:'DM Mono',monospace;font-size:0.68rem;">B.Tech Aerospace · IIT Bombay</span>
+    <p style="margin-bottom:12px; color: var(--muted); font-size:0.8rem;">
+        Some project links are pending upload — check back soon.
+    </p>
+    <a href="index.html">&larr; Back to Main Site</a>
+    &nbsp;&nbsp;|&nbsp;&nbsp;
+    <a href="https://github.com/IITIANAyush" target="_blank">github.com/IITIANAyush ↗</a>
 </footer>
 
 <script>
-  // Scroll reveal
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-      }
-    });
-  }, { threshold: 0.1 });
-  reveals.forEach(el => observer.observe(el));
+    // ── filter logic ──
+    const btns = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.card');
 
-  // Stagger children
-  document.querySelectorAll('.skills-grid.reveal, .projects-grid.reveal, .achievements-grid.reveal, .leadership-grid.reveal').forEach(grid => {
-    const children = grid.children;
-    Array.from(children).forEach((child, i) => {
-      child.style.transitionDelay = `${i * 0.06}s`;
-      child.style.opacity = '0';
-      child.style.transform = 'translateY(20px)';
-      child.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    btns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            btns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const filter = btn.dataset.filter;
+            cards.forEach(card => {
+                if (filter === 'all') {
+                    card.classList.remove('hidden');
+                } else {
+                    const cats = (card.dataset.category || '').split(' ');
+                    card.classList.toggle('hidden', !cats.includes(filter));
+                }
+            });
+        });
     });
-    const gridObserver = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          Array.from(children).forEach(child => {
-            child.style.opacity = '1';
-            child.style.transform = 'translateY(0)';
-          });
-        }
-      });
-    }, { threshold: 0.05 });
-    gridObserver.observe(grid);
-  });
+
+    // ── staggered reveal on load ──
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, { threshold: 0.08 });
+
+    cards.forEach((card, i) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(24px)';
+        card.style.transition = `opacity 0.45s ease ${i * 0.04}s, transform 0.45s ease ${i * 0.04}s, border-color 0.25s, box-shadow 0.25s`;
+        observer.observe(card);
+    });
 </script>
 </body>
 </html>
